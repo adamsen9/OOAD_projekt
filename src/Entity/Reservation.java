@@ -2,6 +2,10 @@ package Entity;
 
 public class Reservation {
 	int res_id, status, start_dato, start_el, slut_dato, slut_el, plads_id, kunde_id;
+	
+	public Reservation() {
+		//kald til databasen i forbindelse med oprettelse af objekt
+	}
 
 	public int getRes_id() {
 		return res_id;

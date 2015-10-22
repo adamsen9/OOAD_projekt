@@ -3,6 +3,14 @@ package Entity;
 public class HytterPladser {
 	int id, type, status, elmåler_id, måler_tilstand;
 	String sStatus;
+	
+	
+	public HytterPladser() {
+
+		//kald til databasen i forbindelse med oprettelse af objekt
+		
+	}
+	
 	public int getId() {
 		return id;
 	}

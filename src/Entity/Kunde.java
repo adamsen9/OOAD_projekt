@@ -3,6 +3,14 @@ package Entity;
 public class Kunde {
 	int id;
 	String tlf;
+	
+	public Kunde() {
+		//kald til databasen i forbindelse med oprettelse af objekt
+		
+		
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
