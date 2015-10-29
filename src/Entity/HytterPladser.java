@@ -29,7 +29,7 @@ public class HytterPladser {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getElmålerr_id() {
+	public int getElmåler_id() {
 		return elmåler_id;
 	}
 	public void setElmåler_id(int elmåler_id) {
