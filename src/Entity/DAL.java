@@ -59,6 +59,8 @@ public class DAL {
 		
 	}
 	
+	
+	//Dataklasse kunde
 	public void printNames() {
 		
 		try {
@@ -73,5 +75,16 @@ public class DAL {
 			System.out.println("SQL Fejl: " + e.getMessage());
 		}
 	}
+	
+	
+	//Dataklasse Hytterpladser
+	public boolean pushHytterPladser(HytterPladser hyttePlads) {
+		
+		
+		
+		return true;
+	}
+	
+	
 
 }
