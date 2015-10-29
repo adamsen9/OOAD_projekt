@@ -1,7 +1,7 @@
 package Entity;
 
 public class HytterPladser {
-	int id, type, status, elmåler_id, måler_tilstand;
+	int id, type, status, elmÃ¥ler_id, mÃ¥ler_tilstand;
 	String sStatus;
 	
 	
@@ -29,17 +29,17 @@ public class HytterPladser {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getElmåler_id() {
-		return elmåler_id;
+	public int getElmÃ¥lerr_id() {
+		return elmÃ¥ler_id;
 	}
-	public void setElmåler_id(int elmåler_id) {
-		this.elmåler_id = elmåler_id;
+	public void setElmÃ¥ler_id(int elmÃ¥ler_id) {
+		this.elmÃ¥ler_id = elmÃ¥ler_id;
 	}
-	public int getMåler_tilstand() {
-		return måler_tilstand;
+	public int getMÃ¥ler_tilstand() {
+		return mÃ¥ler_tilstand;
 	}
-	public void setMåler_tilstand(int måler_tilstand) {
-		this.måler_tilstand = måler_tilstand;
+	public void setMÃ¥ler_tilstand(int mÃ¥ler_tilstand) {
+		this.mÃ¥ler_tilstand = mÃ¥ler_tilstand;
 	}
 	public String getsStatus() {
 		return sStatus;
