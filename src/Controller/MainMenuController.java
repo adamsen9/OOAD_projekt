@@ -3,6 +3,7 @@ package Controller;
 import Boundary.IUI;
 
 public class MainMenuController extends MotherController {
+	KundeController kundeC = new KundeController(ui);
 	
 	public MainMenuController(IUI ui){
 		super(ui);
@@ -22,7 +23,7 @@ public class MainMenuController extends MotherController {
 				//Reservationer
 				break;
 			case 2:
-				//Kunder
+				kundeC.go();
 				break;
 			case 3:
 				//Regninger

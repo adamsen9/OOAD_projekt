@@ -1,4 +1,4 @@
-package Entity;
+package Entity.Dataklasser;
 
 public class Kunde {
 	int id;

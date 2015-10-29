@@ -1,4 +1,4 @@
-package Entity;
+package Entity.Dataklasser;
 
 public class HytterPladser {
 	int id, type, status, elmåler_id, måler_tilstand;

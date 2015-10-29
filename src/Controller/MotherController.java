@@ -2,7 +2,7 @@ package Controller;
 
 import Boundary.IUI;
 
-public class MotherController {
+public abstract class MotherController {
 	IUI ui;
 	
 	public MotherController(IUI ui){

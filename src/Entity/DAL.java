@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import Entity.Dataklasser.HytterPladser;
+
 public class DAL {
 	
 	//Hvilken driver anvendes

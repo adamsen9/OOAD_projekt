@@ -1,4 +1,4 @@
-package Entity;
+package Entity.Dataklasser;
 
 public class Reservation {
 	int res_id, status, start_dato, start_el, slut_dato, slut_el, plads_id, kunde_id;
