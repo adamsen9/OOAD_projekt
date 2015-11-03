@@ -24,14 +24,16 @@ public class ConsoleAdminController extends MotherController {
 		String menuTittel = "Administrationsmenu";
 		String[] menuOptions = {
 				"Tilbage",
-				"Ret Priser",
-				"Administrer pladser og hytter"
+				"Administrér pladser og hytter",
+				"Administrér Priser",
+				"Administrér Sessoner"
 		};
 
 		Runnable[] menuFunktioner = {
 			() -> { færdig = true;},
+			() -> { hyttePladsMenu();},
 			() -> { prisMenu();},
-			() -> { pladsMenu();} 
+			() -> { sessonMenu();}
 		};
 
 		færdig = false;
@@ -40,6 +42,11 @@ public class ConsoleAdminController extends MotherController {
 		}
 	}
 	
+	private void sessonMenu() {
+		// TODO Auto-generated method stub
+	}
+
+
 	// Prismenu
 	private void prisMenu(){
 		String menuTittel = "Ret priser";
@@ -61,56 +68,103 @@ public class ConsoleAdminController extends MotherController {
 		færdig = false;
 	}
 	
-	//Plasdsmenu
-	private void pladsMenu(){
-		while (true){
-			String menuTittel = "Administrer pladser og hytter\n";
-			
-			HyttePlads[] resultat = AdministrationsDAL.getHyttePladser();
-			if (resultat == null){
-				menuTittel = menuTittel + "Der er ingen hytter eller pladser i systemet\n";
-				resultat = new HyttePlads[0];
-			}
-			
-			String[] menuOptions = new String[resultat.length+2];
-			menuOptions[0] = "Tilbage";
-			menuOptions[resultat.length+1] = "Opret ny hytte";
+	// Administrér pladser og hytter
+	private void hyttePladsMenu() {
+		String menuTittel = "Administrér pladser og hytter";
+		String[] menuOptions = {
+				"Tilbage",
+				"Vis alle hytter og pladser",
+				"Opret ny hytte eller plads",
+				"Ret eksisterende hytte eller plads",
+				"Slet en hytte eller plads"
+		};
 
-			for (int i = 0; i < resultat.length; i++){
-				menuOptions[i+1] = resultat[i].toString();
-			}
+		Runnable[] menuFunktioner = {
+			() -> { færdig = true; },
+			() -> { visHytterPladser(); },
+			() -> { nyHyttePlads(); }, 
+			() -> { retHyttePlads(); },
+			() -> { sletHyttePlads();} 
+		};
 
-			int valg = ui.visMenu(menuTittel, menuOptions);
-			if (valg == 0)
-				return;
-			
-			if (valg == resultat.length+1){
-				nyHyttePlads();
-				continue;
-			}
-
-			retHyttePlads(resultat[valg-1]);
-			
+		while (!færdig){
+			menuFunktioner[ui.visMenu(menuTittel, menuOptions)].run();
+		}
+		færdig = false;
+		
+	}
+	
+	//Vis hytter og pladser
+	private void visHytterPladser(){
+		ui.besked("Hytter og pladser \n");
+		
+		HyttePlads[] resultat = AdministrationsDAL.getHyttePladser();
+		if (resultat == null){
+			ui.besked("Der er ingen hytter eller pladser i systemet\n");
+			return;
+		}
+		
+		for (HyttePlads hp : resultat){
+			ui.besked(hp.toString());
 		}
 	}
 	
 	// opret hytte eller plads
 	private void nyHyttePlads(){
 		String[] svar = ui.multiInput("Indtast oplysninger på ny hytte/plads", hyttePladsAttributter);
-		
+		HyttePlads nyHyttePlads = hyttePladsFraArray(svar);
+		AdministrationsDAL.createHyttePlads(nyHyttePlads);
 	}
 	
 	// Ret specifik hytte eller plads
-	private void retHyttePlads(HyttePlads hp){
-		String[] svar = ui.multiInput("Ret plads ", hyttePladsAttributter);
+	private void retHyttePlads(){
+		String sId = ui.input("Indtast id på hytte eller plads");
 		
-		if ( svar != null){
-			if (svar[0] != null)
-				System.out.println("*" + svar[0] + "*");
-			
+		int id;
+		try{
+			id = Integer.parseInt(sId);
+		} catch (NumberFormatException e){
+			ui.besked("Det indtastede id kan ikke genkendes som et tal\n");
+			return;
+		}
+		
+		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		if (gammelHP == null){
+			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
+			return;
+		}
+		
+		String[] svar = ui.multiInput("Ret plads ", hyttePladsAttributter);
+		HyttePlads nyHP = hyttePladsFraArray(svar);
+		nyHP.setId(gammelHP.getId());
+		AdministrationsDAL.updateHyttePlads(nyHP);
+		
+	}
+	
+	private void sletHyttePlads() {
+		String sId = ui.input("Indtast id på hytte eller plads");
+		
+		int id;
+		try{
+			id = Integer.parseInt(sId);
+		} catch (NumberFormatException e){
+			ui.besked("Det indtastede id kan ikke genkendes som et tal\n");
+			return;
+		}
+		
+		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		if (gammelHP == null){
+			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
+			return;
+		}
+		
+		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.toString())){
+			AdministrationsDAL.deleteHyttePlads(gammelHP.getId());
 		}
 	}
 	
-	
-
+	private HyttePlads hyttePladsFraArray(String[] attributes){
+		//TODO
+		return null;
+	}
 }
