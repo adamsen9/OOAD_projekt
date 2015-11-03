@@ -4,14 +4,14 @@ import Boundary.IUI;
 
 public class MainMenuController extends MotherController {
 	KundeController kundeC = new KundeController(ui);
-	AdminController adminC = new AdminController(ui);
+	ConsoleAdminController adminC = new ConsoleAdminController(ui);
 	
 	public MainMenuController(IUI ui){
 		super(ui);
 	}
 	
 	public void run() {
-		String[] menuItems = {"Luk Programmet","Vis reservation","Kunder","Tjek ind","Tjek ud"};
+		String[] menuItems = {"Luk Programmet","Vis reservation","Kunder","Tjek ind","Tjek ud","Administrator menu"};
 		while(true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
 			
@@ -27,14 +27,14 @@ public class MainMenuController extends MotherController {
 				kundeC.run();
 				break;
 			case 3:
-				//Regninger
+				// Tjek ind
 				break;
 			case 4:
-				//Lejradministration
-				adminC.run();
+				//Regninger
 				break;
 			case 5:
-				//
+				//Lejradministration
+				adminC.run();
 				break;
 			}
 		}

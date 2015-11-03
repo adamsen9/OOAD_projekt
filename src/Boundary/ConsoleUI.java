@@ -12,8 +12,8 @@ public class ConsoleUI implements IUI{
 	}
 
 	@Override
-	public int visMenu(String title, String[] s) {
-		System.out.println(title);
+	public int visMenu(String tittel, String[] s) {
+		System.out.println(tittel);
 		
 		int i = 0;
 		int d;
@@ -38,21 +38,37 @@ public class ConsoleUI implements IUI{
 	}
 
 	@Override
-	public String input(String s) {
-		// TODO Auto-generated method stub
-		return null;
+	public String input(String besked) {
+		System.out.println(besked);
+			try {
+				return br.readLine();
+			} catch(Exception e) {
+				// TODO mere beskrivende fejlmeddelelse
+				System.out.println("der skete en fejl");
+				return null;
+			}
 	}
 
 	@Override
-	public boolean confirm() {
+	public String[] multiInput(String tittel, String[] navne) {
+		System.out.println(tittel);
+
+		String[] svar = new String[navne.length];
+		for(int i = 0; i < navne.length; i++){
+			svar[i] = input(navne[i]);
+		}
+		return svar;
+	}
+
+	@Override
+	public boolean bekræft(String besked) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public String message() {
-		// TODO Auto-generated method stub
-		return null;
+	public void besked(String besked) {
+		System.out.println(besked);
 	}
 	
 	
