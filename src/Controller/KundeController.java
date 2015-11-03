@@ -8,7 +8,7 @@ public class KundeController extends MotherController {
 		super(ui);
 	}
 	
-	public void go() {
+	public void run() {
 		String[] menuItems = {"Gå op","Vis alle kunder","Vis alle kunder"};
 		
 		while(true) {

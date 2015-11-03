@@ -23,7 +23,7 @@ public class MainMenuController extends MotherController {
 				//Reservationer
 				break;
 			case 2:
-				kundeC.go();
+				kundeC.run();
 				break;
 			case 3:
 				//Regninger

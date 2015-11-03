@@ -8,4 +8,6 @@ public abstract class MotherController {
 	public MotherController(IUI ui){
 		this.ui = ui;
 	}
+	
+	public abstract void run();
 }
