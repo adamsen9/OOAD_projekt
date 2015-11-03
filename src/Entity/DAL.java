@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import Entity.Dataklasser.HytterPladser;
+import Entity.Dataklasser.HyttePlads;
 
 public class DAL {
 	
@@ -80,7 +80,7 @@ public class DAL {
 	
 	
 	//Dataklasse Hytterpladser
-	public boolean pushHytterPladser(HytterPladser hyttePlads) {
+	public boolean pushHytterPladser(HyttePlads hyttePlads) {
 		
 		
 		

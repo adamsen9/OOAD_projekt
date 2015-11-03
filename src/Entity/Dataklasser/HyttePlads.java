@@ -1,11 +1,11 @@
 package Entity.Dataklasser;
 
-public class HytterPladser {
+public class HyttePlads {
 	int id, type, status, elmåler_id, måler_tilstand;
 	String sStatus;
 	
 	
-	public HytterPladser() {
+	public HyttePlads() {
 
 		//kald til databasen i forbindelse med oprettelse af objekt
 		
