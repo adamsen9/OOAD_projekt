@@ -1,7 +1,6 @@
 package Entity;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import Entity.Dataklasser.HyttePlads;
@@ -46,6 +45,7 @@ public class DALTemp {
 		
 	}
 	
+	//Push
 	public boolean insertName(int id, String name) {
 		try {
 			String sql = String.format(Locale.US, "INSERT INTO test_name VALUES (" + id + ", '" + name + "')");
@@ -62,7 +62,7 @@ public class DALTemp {
 	}
 	
 	
-	//Dataklasse kunde
+	//Pull
 	public void printNames() {
 		
 		try {
