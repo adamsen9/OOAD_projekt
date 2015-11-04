@@ -24,10 +24,11 @@ public class ReservationsController extends MotherController{
 				return;
 			case 1:
 				//Lav reservation
-				
+				createReservation();
 				break;
 			case 2:
 				//Vis alle reservationer
+				showReservations();
 				break;
 			default:
 				
@@ -39,10 +40,22 @@ public class ReservationsController extends MotherController{
 	
 	public void Checkin(){
 		//do stuff
+		
 	}
 	
 	public void Checkout(){
 		//do stuff
+		
+	}
+	
+	public void createReservation(){
+		//do stuff
+		
+	}
+	
+	public void showReservations(){
+		//do stuff
+		
 	}
 
 }
