@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class HyttePlads {
+public class HyttePlads implements Dataclass {
 	int id, type, status, elmåler_id, måler_tilstand;
 	String sStatus;
 	

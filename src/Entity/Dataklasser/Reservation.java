@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class Reservation {
+public class Reservation implements Dataclass {
 	int res_id, status, start_dato, start_el, slut_dato, slut_el, plads_id, kunde_id;
 	
 	public Reservation() {

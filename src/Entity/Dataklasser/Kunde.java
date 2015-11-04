@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class Kunde {
+public class Kunde implements Dataclass {
 	int id;
 	String tlf;
 	

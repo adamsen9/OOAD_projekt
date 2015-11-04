@@ -1,5 +1,5 @@
 package Entity.Dataklasser;
 
-public class Prinsinformation {
+public class Prinsinformation implements Dataclass {
 
 }

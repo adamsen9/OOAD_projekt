@@ -1,5 +1,5 @@
 package Entity.Dataklasser;
 
-public class Sæsoner {
+public class Sæsoner implements Dataclass {
 
 }
