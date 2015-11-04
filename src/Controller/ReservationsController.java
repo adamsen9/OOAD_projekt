@@ -6,12 +6,14 @@ public class ReservationsController extends MotherController{
 
 	public ReservationsController(IUI ui) {
 		super(ui);
+		
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		String[] menuItems = {"Gå op","Lav reservation","Vis alle reservationer"};
+		
 		
 		while(true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
@@ -21,10 +23,11 @@ public class ReservationsController extends MotherController{
 				//Gå op
 				return;
 			case 1:
-				//Opret kunde
+				//Lav reservation
+				
 				break;
 			case 2:
-				//Vis alle kunder
+				//Vis alle reservationer
 				break;
 			default:
 				
@@ -32,6 +35,14 @@ public class ReservationsController extends MotherController{
 			}
 		}
 		
+	}
+	
+	public void Checkin(){
+		//do stuff
+	}
+	
+	public void Checkout(){
+		//do stuff
 	}
 
 }

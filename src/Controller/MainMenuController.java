@@ -30,11 +30,16 @@ public class MainMenuController extends MotherController {
 				break;
 			case 3:
 				// Tjek ind
+				reservC.Checkin();
 				break;
 			case 4:
-				//Regninger
+				// Tjek ud
+				reservC.Checkout();
 				break;
 			case 5:
+				//Regninger
+				break;
+			case 6:
 				//Lejradministration
 				adminC.run();
 				break;
