@@ -4,6 +4,7 @@ import Boundary.IUI;
 
 public class MainMenuController extends MotherController {
 	KundeController kundeC = new KundeController(ui);
+	ReservationsController reservC = new ReservationsController(ui);
 	ConsoleAdminController adminC = new ConsoleAdminController(ui);
 	
 	public MainMenuController(IUI ui){
@@ -22,6 +23,7 @@ public class MainMenuController extends MotherController {
 				return;
 			case 1:
 				//Reservationer
+				reservC.run();
 				break;
 			case 2:
 				kundeC.run();
