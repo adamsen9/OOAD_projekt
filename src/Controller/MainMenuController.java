@@ -37,9 +37,6 @@ public class MainMenuController extends MotherController {
 				reservC.Checkout();
 				break;
 			case 5:
-				//Regninger
-				break;
-			case 6:
 				//Lejradministration
 				adminC.run();
 				break;
