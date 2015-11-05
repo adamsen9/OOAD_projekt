@@ -14,7 +14,7 @@ public class MainMenuController extends MotherController {
 	}
 	
 	public void run() {
-		String[] menuItems = {"Luk Programmet","Vis reservation","Kunder","Tjek ind","Tjek ud","Administrator menu"};
+		String[] menuItems = {"Luk Programmet","Reservationer","Kunder","Tjek ind","Tjek ud","Administrator menu"};
 		while(true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
 			

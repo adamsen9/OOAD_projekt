@@ -21,7 +21,6 @@ public class ReservationsDAL {
 		}
 
 
-
 //	public static ArrayList<Reservation> showCabinReservation(int valg) {
 //		String sql = "SELECT * FROM HytterPladser WHERE ";
 //		
@@ -65,6 +64,9 @@ public class ReservationsDAL {
 	
 	}
 	
+	
+	
+
 	
 	
 
