@@ -44,12 +44,21 @@ public class ReservationsController extends MotherController{
 	
 	public void Checkin() throws NumberFormatException, IOException{
 		//do stuff
-		System.out.println("Indtast den dag du gerne vil starte dit ophold");
-		Day();
-		System.out.println("Indtast den måned du gerne vil starte dit ophold");
-		Month();
-		System.out.println("Indtast det år du gerne vil starte dit ophold");
-		Year();
+		int start_day, start_month, start_year;
+		int end_day, end_month, end_year;
+		ui.besked("Indtast den dag du gerne vil starte dit ophold");
+		start_day = Day();
+		ui.besked("Indtast den måned du gerne vil starte dit ophold");
+		start_month = Month();
+		ui.besked("Indtast det år du gerne vil starte dit ophold");
+		start_year = Year();
+		
+		ui.besked("Indtast den dag du gerne vil slutte dit ophold");
+		end_day = Day();
+		ui.besked("Indtast den måned du gerne vil slutte dit ophold");
+		end_month = Month();
+		ui.besked("Indtast det år du gerne vil slutte dit ophold");
+		end_year = Year();
 	}
 	
 	public void Checkout(){
@@ -64,16 +73,63 @@ public class ReservationsController extends MotherController{
 	
 	public void showReservations(){
 		//do stuff
+		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "2 personer hytte, lille"};
+		
+		while (true) {
+			int valg = ui.visMenu("Costa Kalundborg", menulist);
+						
+						
+						switch (valg) {
+						case 0:
+							//Sluk programmet
+							return;
+						case 1:
+							showLuxuryWRoof();
+							break;
+						case 2:
+							showLuxuryWRoof();
+							break;
+						case 3:
+							show4Pers();
+							break;
+						case 4:
+							show2Pers();
+							break;
+						case 5:
+							show2PersSmall();
+							break;
+						}
+					}
 		
 	}
-	
+
+private void show2PersSmall() {
+		// TODO Auto-generated method stub
+		
+	}
+
+private void show2Pers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+private void show4Pers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+private void showLuxuryWRoof() {
+		// TODO Auto-generated method stub
+		
+	}
+
 public int Month(){
 	int month;
 	while(true) {
 		try {
-			month = Integer.parseInt(br.readLine());
+			month = Integer.parseInt(ui.input(" "));
 			if(month < 1 || month >= 13) {
-				System.out.println("Indtast tal mellem 0 og 12");
+				ui.besked("Indtast tal mellem 0 og 12");
 			}else{
 				return month;
 			}
@@ -88,7 +144,7 @@ public int Month(){
 		int day;
 		while(true) {
 			try {
-				day = Integer.parseInt(br.readLine());
+				day = Integer.parseInt(ui.input(" "));
 				if(day < 1 || day > 31) {
 					System.out.println("Indtast en dag mellem 1 og 31");
 				}else{
@@ -104,7 +160,7 @@ public int Month(){
 		int year;
 		while(true) {
 			try {
-				year = Integer.parseInt(br.readLine());
+				year = Integer.parseInt(ui.input(" "));
 				if(year < 2015) {
 					System.out.println("Du kan ikke rejse tilbage i tiden");
 				}else{
