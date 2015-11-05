@@ -1,11 +1,17 @@
 package Controller;
 
 import Boundary.IUI;
+import Entity.KundeDAL;
+import Entity.Dataklasser.Kunde;
+
+import java.util.ArrayList;
 
 public class KundeController extends MotherController {
-
+	static KundeDAL kundeDAL;
+	
 	public KundeController(IUI ui) {
 		super(ui);
+		kundeDAL = new KundeDAL();
 	}
 	
 	public void run() {
@@ -23,18 +29,23 @@ public class KundeController extends MotherController {
 				break;
 			case 2:
 				//Vis alle kunder
+				alleKunder();
+				
 				break;
 			default:
-				
 				break;
 			}
 		}
-		
 	}
 	
-	
-	
-
+	public static void alleKunder() {
+		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
+		kundeList = kundeDAL.pullAll();
+		
+		for(Kunde kunde : kundeList) {
+			ui.besked("ID: " + kunde.getId() + " Navn: " + kunde.getNavn() + " Tlf: " + kunde.getTlf());
+		}
+	}
 }
 
 

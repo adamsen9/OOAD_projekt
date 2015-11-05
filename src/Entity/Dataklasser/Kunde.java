@@ -1,21 +1,25 @@
 package Entity.Dataklasser;
 
-public class Kunde {
-	int id;
+public class Kunde implements Dataclass {
+	int kunde_id;
 	String tlf;
+	String kunde_navn;
 	
 	public Kunde() {
-		//kald til databasen i forbindelse med oprettelse af objekt
 		
-		
-		
+	}
+	
+	public Kunde( String kunde_navn, int kunde_id, String tlf) {
+		this.kunde_id = kunde_id;
+		this.tlf = tlf;
+		this.kunde_navn = kunde_navn;
 	}
 	
 	public int getId() {
-		return id;
+		return kunde_id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.kunde_id = id;
 	}
 	public String getTlf() {
 		return tlf;
@@ -23,4 +27,11 @@ public class Kunde {
 	public void setTlf(String tlf) {
 		this.tlf = tlf;
 	}
+	public String getNavn() {
+		return kunde_navn;
+	}
+	public void setNavn(String navn) {
+		this.kunde_navn = navn;
+	}
+	
 }
