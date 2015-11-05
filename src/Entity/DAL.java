@@ -12,7 +12,7 @@ public class DAL {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	//URL
-	static final String DB_URL = "jdbc:mysql://localhost/test";
+	static final String DB_URL = "jdbc:mysql://localhost/costakalundborg";
 	//Bruger
 	static final String USER = "root";
 	//Pass
@@ -25,18 +25,18 @@ public class DAL {
 	//Pull
 	public ResultSet pull(String sql) {
 		try {
+			System.out.println("Issued pull statement");
 			sql = String.format(Locale.US, sql);
 			
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 			stmt = conn.createStatement();
-			
-			stmt.executeUpdate(sql);
-			return rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 		}
+		System.out.println("Returning rs");
 		return rs;
 	}
 	

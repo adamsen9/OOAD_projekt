@@ -17,7 +17,6 @@ public class KundeDAL {
 		String sql = "SELECT * FROM kunde";
 		ResultSet rs = dal.pull(sql);
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
-		
 		try {
 			while (rs.next()) {				
 				kundeList.add(new Kunde(rs.getString("kunde_navn"),rs.getInt("kunde_id"),rs.getString("tlf")));

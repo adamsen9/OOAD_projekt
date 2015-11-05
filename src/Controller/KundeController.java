@@ -41,11 +41,9 @@ public class KundeController extends MotherController {
 	public static void alleKunder() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		kundeList = kundeDAL.pullAll();
-		
+		ui.besked("Liste over alle kunder:");
 		for(Kunde kunde : kundeList) {
 			ui.besked("ID: " + kunde.getId() + " Navn: " + kunde.getNavn() + " Tlf: " + kunde.getTlf());
 		}
 	}
 }
-
-
