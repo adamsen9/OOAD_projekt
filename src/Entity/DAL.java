@@ -41,6 +41,6 @@ public class DAL {
 	}
 	
 	
-	//Pull
+	//Push
 	
 }

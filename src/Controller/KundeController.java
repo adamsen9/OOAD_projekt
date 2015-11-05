@@ -38,6 +38,18 @@ public class KundeController extends MotherController {
 		}
 	}
 	
+	public static void opretKunde() {
+		ui.besked("Oprettelse af ny kunde");	
+		ui.besked("Indtast -1 på et givent tidspunkt for at afbryde");	
+		
+		//Navn
+		String navn = ui.input("Indtast navn:");
+		//Tlf
+		String tlf = ui.input("Indtast telefonnumer:");
+		
+		
+	}
+	
 	public static void alleKunder() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		kundeList = kundeDAL.pullAll();

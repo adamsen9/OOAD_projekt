@@ -27,10 +27,24 @@ public class KundeDAL {
 		}
 		return kundeList;
 	}
+	
+	public Kunde pull() {
+		
+		return new Kunde();
+	}
+	
 
-	public boolean push(Kunde kunde) {
-		// TODO Auto-generated method stub
+	public boolean pushNew(Kunde kunde) {
+		String sql = "INSERT INTO kunde values ";
+		
+		
+		return true;
+	}
+	
+	public boolean update(Kunde kunde) {
+		
+		
+		
 		return false;
 	}
-
 }

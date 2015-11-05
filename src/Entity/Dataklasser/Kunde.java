@@ -9,8 +9,14 @@ public class Kunde implements Dataclass {
 		
 	}
 	
-	public Kunde( String kunde_navn, int kunde_id, String tlf) {
+	public Kunde(String kunde_navn, int kunde_id, String tlf) {
 		this.kunde_id = kunde_id;
+		this.tlf = tlf;
+		this.kunde_navn = kunde_navn;
+	}
+	
+	public Kunde(String kunde_navn, String tlf) {
+		this.kunde_id = 0;
 		this.tlf = tlf;
 		this.kunde_navn = kunde_navn;
 	}
