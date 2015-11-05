@@ -42,5 +42,19 @@ public class DAL {
 	
 	
 	//Push
-	
+	public boolean push(String sql) {
+		try {
+			System.out.println("Issued push statement");
+			sql = String.format(Locale.US, sql);
+			
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+
+		} catch(SQLException e) {
+			System.out.println("SQL Fejl: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
 }

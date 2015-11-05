@@ -15,7 +15,7 @@ public class KundeController extends MotherController {
 	}
 	
 	public void run() {
-		String[] menuItems = {"Gå op","Vis alle kunder","Vis alle kunder"};
+		String[] menuItems = {"Gå op","Opret kunde","Vis alle kunder","Vis en kunde"};
 		
 		while(true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
@@ -26,6 +26,7 @@ public class KundeController extends MotherController {
 				return;
 			case 1:
 				//Opret kunde
+				opretKunde();
 				break;
 			case 2:
 				//Vis alle kunder
@@ -44,10 +45,19 @@ public class KundeController extends MotherController {
 		
 		//Navn
 		String navn = ui.input("Indtast navn:");
+		if(navn.equals("-1")) {
+			System.out.println("Afbryder");			
+			return;
+		}
 		//Tlf
 		String tlf = ui.input("Indtast telefonnumer:");
+		if(tlf.equals("-1")) {
+			System.out.println("Afbryder");	
+			return;
+		}
 		
-		
+		Kunde kunde = new Kunde(navn, tlf);
+		kundeDAL.pushNew(kunde);
 	}
 	
 	public static void alleKunder() {
