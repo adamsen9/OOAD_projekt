@@ -1,7 +1,9 @@
 package Controller;
 
+import java.util.ArrayList;
+
 import Boundary.IUI;
-import Entity.AdministrationsDAL;
+import Entity.HyttePladsDAL;
 import Entity.Dataklasser.HyttePlads;
 
 public class ConsoleAdminController extends MotherController {
@@ -97,8 +99,8 @@ public class ConsoleAdminController extends MotherController {
 	//Vis hytter og pladser
 	private void visHytterPladser(){
 		ui.besked("Hytter og pladser \n");
-		
-		HyttePlads[] resultat = AdministrationsDAL.getHyttePladser();
+		ArrayList<HyttePlads> resultat;
+		resultat = HyttePladsDAL.getHyttePladser();
 		if (resultat == null){
 			ui.besked("Der er ingen hytter eller pladser i systemet\n");
 			return;
@@ -113,7 +115,7 @@ public class ConsoleAdminController extends MotherController {
 	private void nyHyttePlads(){
 		String[] svar = ui.multiInput("Indtast oplysninger på ny hytte/plads", hyttePladsAttributter);
 		HyttePlads nyHyttePlads = hyttePladsFraArray(svar);
-		AdministrationsDAL.createHyttePlads(nyHyttePlads);
+		HyttePladsDAL.createHyttePlads(nyHyttePlads);
 	}
 	
 	// Ret specifik hytte eller plads
@@ -128,7 +130,7 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		HyttePlads gammelHP = HyttePladsDAL.getHyttePlads(id);
 		if (gammelHP == null){
 			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
 			return;
@@ -136,8 +138,8 @@ public class ConsoleAdminController extends MotherController {
 		
 		String[] svar = ui.multiInput("Ret plads ", hyttePladsAttributter);
 		HyttePlads nyHP = hyttePladsFraArray(svar);
-		nyHP.setId(gammelHP.getId());
-		AdministrationsDAL.updateHyttePlads(nyHP);
+		nyHP.setPlads_id(gammelHP.getPlads_id());
+		HyttePladsDAL.updateHyttePlads(nyHP);
 		
 	}
 	
@@ -152,14 +154,14 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		HyttePlads gammelHP = HyttePladsDAL.getHyttePlads(id);
 		if (gammelHP == null){
 			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
 			return;
 		}
 		
 		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.toString())){
-			AdministrationsDAL.deleteHyttePlads(gammelHP.getId());
+			HyttePladsDAL.deleteHyttePlads(gammelHP.getPlads_id());
 		}
 	}
 	
