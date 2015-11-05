@@ -3,8 +3,12 @@ package Controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import Boundary.IUI;
+import Entity.ReservationsDAL;
+import Entity.Dataklasser.Kunde;
+import Entity.Dataklasser.Reservation;
 
 public class ReservationsController extends MotherController{
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -77,51 +81,34 @@ public class ReservationsController extends MotherController{
 		
 		while (true) {
 			int valg = ui.visMenu("Costa Kalundborg", menulist);
-						
-						
 						switch (valg) {
 						case 0:
 							//Sluk programmet
 							return;
 						case 1:
-							showLuxuryWRoof();
+							showCabinReservations(valg);
 							break;
 						case 2:
-							showLuxuryWRoof();
+							showCabinReservations(valg);
 							break;
 						case 3:
-							show4Pers();
+							showCabinReservations(valg);
 							break;
 						case 4:
-							show2Pers();
+							showCabinReservations(valg);
 							break;
 						case 5:
-							show2PersSmall();
+							showCabinReservations(valg);
 							break;
 						}
 					}
 		
 	}
 
-private void show2PersSmall() {
-		// TODO Auto-generated method stub
-		
-	}
-
-private void show2Pers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-private void show4Pers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-private void showLuxuryWRoof() {
-		// TODO Auto-generated method stub
-		
-	}
+private void showCabinReservations(int valg){
+	ArrayList<Reservation> ReservList = new ArrayList<Reservation>();
+//	ReservList = ReservationsDAL.showCabinReservation(valg);
+}
 
 public int Month(){
 	int month;
