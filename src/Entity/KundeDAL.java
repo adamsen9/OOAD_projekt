@@ -12,6 +12,39 @@ public class KundeDAL {
 		dal = new DAL();
 	}
 
+	public ArrayList<Kunde> pull(String valg, int i) {
+		String sql = "SELECT * FROM kunde WHERE ";
+		
+		//Navn
+		if(i == 1) {
+			sql += "kunde_navn = '" + valg + "'";
+			
+		}
+		//tlf
+		if(i == 2) {
+			sql += "tlf = '" + valg + "'";
+			
+		}
+		//id
+		if(i == 3) {
+			sql += "kunde_id = '" + valg + "'";
+		}
+		
+		
+		ResultSet rs = dal.pull(sql);
+		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
+		try {
+			while (rs.next()) {
+				kundeList.add(new Kunde(rs.getString("kunde_navn"), rs.getInt("kunde_id"), rs.getString("tlf")));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL Fejl: " + e.getMessage());
+			return null;
+		}
+		return kundeList;
+	}
+
+	
 	public ArrayList<Kunde> pullAll() {
 		String sql = "SELECT * FROM kunde";
 		ResultSet rs = dal.pull(sql);
@@ -32,7 +65,7 @@ public class KundeDAL {
 		return new Kunde();
 	}
 
-	public boolean pushNew(Kunde kunde) {
+	public int pushNew(Kunde kunde) {
 		String sql = "SELECT * FROM kunde";
 		ArrayList<Integer> kundeID = new ArrayList<Integer>();
 		ResultSet rs = dal.pull(sql);
@@ -43,7 +76,7 @@ public class KundeDAL {
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
-			return false;
+			return 0;
 		}
 
 		int counter = 1;
@@ -53,14 +86,18 @@ public class KundeDAL {
 				sql = "INSERT INTO kunde VALUES + '" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
 						+ "')";
 				inserted = dal.push(sql);
-				return inserted;
+				return counter;
 			}
 			counter++;
 		}
 
 		sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf() + "')";
-		inserted = dal.push(sql);
-		return inserted;
+		if(dal.push(sql)) {
+			return counter;
+			
+		} else {
+			return 0;
+		}
 
 	}
 

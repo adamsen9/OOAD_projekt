@@ -25,7 +25,6 @@ public class DAL {
 	//Pull
 	public ResultSet pull(String sql) {
 		try {
-			System.out.println("Issued pull statement");
 			sql = String.format(Locale.US, sql);
 			
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -36,7 +35,6 @@ public class DAL {
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 		}
-		System.out.println("Returning rs");
 		return rs;
 	}
 	
@@ -44,7 +42,6 @@ public class DAL {
 	//Push
 	public boolean push(String sql) {
 		try {
-			System.out.println("Issued push statement");
 			sql = String.format(Locale.US, sql);
 			
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
