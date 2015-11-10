@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class Prinsinformation implements IListEntity{
+public class Sæson implements IListEntity{
 
 	@Override
 	public int getId() {

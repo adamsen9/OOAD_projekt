@@ -3,15 +3,34 @@ package Controller;
 import Boundary.IUI;
 import Entity.AdministrationsDAL;
 import Entity.Dataklasser.HyttePlads;
+import Entity.Dataklasser.IListEntity;
+import Function.AdministrationsFunc;
 
 public class ConsoleAdminController extends MotherController {
 
+	private static final int hyttePlads = 0;
+	private static final int pris = 1;
+	private static final int sæson = 2;
+	
+	
 	boolean færdig;
 	String[] hyttePladsAttributter = {
 			"type",
 			"måler id",
 			"Status kode",
 			"Status beskrivelse"
+	};
+
+	String[] prisAttributter = {
+			"enhed",
+			"sæson",
+			"værdi",
+	};
+	
+	String[] sæsonAttributter = {
+			"start",
+			"slut",
+			"navn",
 	};
 	
 	public ConsoleAdminController(IUI ui) {
@@ -20,20 +39,21 @@ public class ConsoleAdminController extends MotherController {
 	
 
 	// Administrationsmenu
+	// Vælg type
 	public void run(){
 		String menuTittel = "Administrationsmenu";
 		String[] menuOptions = {
 				"Tilbage",
 				"Administrér pladser og hytter",
 				"Administrér Priser",
-				"Administrér Sessoner"
+				"Administrér sæsoner"
 		};
 
 		Runnable[] menuFunktioner = {
 			() -> { færdig = true;},
-			() -> { hyttePladsMenu();},
-			() -> { prisMenu();},
-			() -> { sessonMenu();}
+			() -> { funktionsMenu(hyttePlads);},
+			() -> { funktionsMenu(pris);},
+			() -> { funktionsMenu(sæson);}
 		};
 
 		færdig = false;
@@ -42,83 +62,126 @@ public class ConsoleAdminController extends MotherController {
 		}
 	}
 	
-	private void sessonMenu() {
-		// TODO Auto-generated method stub
-	}
+	//Vælg funktion
+	private void funktionsMenu(int typpe){
+		String menuTittel = "";
+		String[] menuOptions = {};
 
-
-	// Prismenu
-	private void prisMenu(){
-		String menuTittel = "Ret priser";
-		String[] menuOptions = {
-				"Tilbage",
-				"ting",
-				"andre ting"
-		};
-
-		Runnable[] menuFunktioner = {
-			() -> { færdig = true;},
-			() -> { },
-			() -> { } 
-		};
-
-		while (!færdig){
-			menuFunktioner[ui.visMenu(menuTittel, menuOptions)].run();
-		}
-		færdig = false;
-	}
-	
-	// Administrér pladser og hytter
-	private void hyttePladsMenu() {
-		String menuTittel = "Administrér pladser og hytter";
-		String[] menuOptions = {
+		if (typpe == hyttePlads){
+			menuTittel = "Administrér pladser og hytter.";
+			menuOptions = new String[]{
 				"Tilbage",
 				"Vis alle hytter og pladser",
 				"Opret ny hytte eller plads",
 				"Ret eksisterende hytte eller plads",
 				"Slet en hytte eller plads"
-		};
+			};
+		} else if (typpe == pris){
+			menuTittel = "Administrér priser.";
+			menuOptions = new String[]{
+				"Tilbage",
+				"Vis alle priser",
+				"Opret ny pris",
+				"Ret eksisterende pris",
+				"Slet en pris"
+			};
+		} else if (typpe == sæson){
+			menuTittel = "Administrér sæsoner.";
+			menuOptions = new String[]{
+				"Tilbage",
+				"Vis alle sæsoner",
+				"Opret ny sæson",
+				"Ret eksisterende sæson",
+				"Slet en sæson"
+			};
+		}
 
 		Runnable[] menuFunktioner = {
 			() -> { færdig = true; },
-			() -> { visHytterPladser(); },
-			() -> { nyHyttePlads(); }, 
-			() -> { retHyttePlads(); },
-			() -> { sletHyttePlads();} 
+			() -> { visAlle(typpe); },
+			() -> { ny(typpe); }, 
+			() -> { ret(typpe); },
+			() -> { slet(typpe);} 
 		};
 
 		while (!færdig){
 			menuFunktioner[ui.visMenu(menuTittel, menuOptions)].run();
 		}
 		færdig = false;
-		
 	}
 	
-	//Vis hytter og pladser
-	private void visHytterPladser(){
-		ui.besked("Hytter og pladser \n");
+	//Vis 
+	private void visAlle(int typpe){
+		IListEntity[] resultat = null;
+		if (typpe == hyttePlads){
+			ui.besked("Hytter og pladser \n");
+			resultat = AdministrationsDAL.getHyttePladser();
+		} else if (typpe == pris){
+			ui.besked("Priser \n");
+			resultat = AdministrationsDAL.getPriser();
+		} else if (typpe == sæson){
+			ui.besked("sæsoner \n");
+			resultat = AdministrationsDAL.getSæsoner();
+		}
 		
-		HyttePlads[] resultat = AdministrationsDAL.getHyttePladser();
 		if (resultat == null){
-			ui.besked("Der er ingen hytter eller pladser i systemet\n");
+			if (typpe == hyttePlads){
+				ui.besked("Der er ingen hytter eller pladser i systemet\n");
+			} else if (typpe == pris){
+				ui.besked("Der er ingen priser i systemet\n");
+			} else if (typpe == sæson){
+				ui.besked("Der er ingen sæsoner i systemet\n");
+			}
 			return;
 		}
 		
-		for (HyttePlads hp : resultat){
-			ui.besked(hp.toString());
+		for (IListEntity hp : resultat){
+			ui.besked(hp.prettyPrint());
 		}
 	}
 	
-	// opret hytte eller plads
-	private void nyHyttePlads(){
-		String[] svar = ui.multiInput("Indtast oplysninger på ny hytte/plads", hyttePladsAttributter);
-		HyttePlads nyHyttePlads = hyttePladsFraArray(svar);
-		AdministrationsDAL.createHyttePlads(nyHyttePlads);
+	// Opret ny
+	private void ny(int typpe){
+		String sTyppe = "";
+		String[] sNavne = {};
+		if (typpe == hyttePlads){
+			sTyppe = "hytte eller plads";
+			sNavne = hyttePladsAttributter;
+		} else if (typpe == pris){
+			sTyppe = "pris";
+			sNavne = prisAttributter;
+		} else if (typpe == sæson){
+			sTyppe = "sæson";
+			sNavne = sæsonAttributter;
+		}
+		
+		String[] svar = ui.multiInput("Indtast oplysninger på ny " + sTyppe, sNavne);
+		
+		if (typpe == hyttePlads){
+			AdministrationsFunc.opretHyttePlads(svar);
+		} else if (typpe == pris){
+			AdministrationsFunc.opretPris(svar);
+		} else if (typpe == sæson){
+			AdministrationsFunc.opretSæson(svar);
+		}
 	}
 	
-	// Ret specifik hytte eller plads
-	private void retHyttePlads(){
-		String sId = ui.input("Indtast id på hytte eller plads");
+	// Ret specifik
+	private void ret(int typpe){
+		String sTyppe = "";
+		String[] sNavne = {};
+		if (typpe == hyttePlads){
+			sTyppe = "hytte eller plads";
+			sNavne = hyttePladsAttributter;
+		} else if (typpe == pris){
+			sTyppe = "pris";
+			sNavne = prisAttributter;
+		} else if (typpe == sæson){
+			sTyppe = "sæson";
+			sNavne = sæsonAttributter;
+		}
+
+		String sId = ui.input("Indtast id på " + sTyppe + ", der skal rettes.");
 		
 		int id;
 		try{
@@ -130,18 +193,16 @@ public class ConsoleAdminController extends MotherController {
 		
 		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
 		if (gammelHP == null){
-			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
+			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
 			return;
 		}
 		
 		String[] svar = ui.multiInput("Ret plads ", hyttePladsAttributter);
-		HyttePlads nyHP = hyttePladsFraArray(svar);
-		nyHP.setId(gammelHP.getId());
-		AdministrationsDAL.updateHyttePlads(nyHP);
-		
+		AdministrationsFunc.retHyttePlads(gammelHP.getId(), svar);
 	}
 	
-	private void sletHyttePlads() {
+	// Slet
+	private void slet(int typpe) {
 		String sId = ui.input("Indtast id på hytte eller plads");
 		
 		int id;
@@ -158,13 +219,9 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.toString())){
+		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.prettyPrint())){
 			AdministrationsDAL.deleteHyttePlads(gammelHP.getId());
 		}
 	}
 	
-	private HyttePlads hyttePladsFraArray(String[] attributes){
-		//TODO
-		return null;
-	}
 }

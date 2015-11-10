@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class HyttePlads {
+public class HyttePlads implements IListEntity{
 	int id, type, status, elmåler_id, måler_tilstand;
 	String sStatus;
 	
@@ -46,5 +46,9 @@ public class HyttePlads {
 	}
 	public void setsStatus(String sStatus) {
 		this.sStatus = sStatus;
+	}
+	public String prettyPrint(){
+		//TODO fix
+		return toString();
 	}
 }
