@@ -15,7 +15,6 @@ public class ConsoleAdminController extends MotherController {
 	private static final int pris = 1;
 	private static final int sæson = 2;
 	
-	
 	boolean færdig;
 	String[] hyttePladsAttributter = {
 			"type",

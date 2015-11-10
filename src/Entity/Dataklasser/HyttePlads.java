@@ -83,4 +83,9 @@ public class HyttePlads implements Dataclass,IListEntity {
 		//TODO fix
 		return toString();
 	}
+
+	@Override
+	public int getId() {
+		return plads_id;
+	}
 }

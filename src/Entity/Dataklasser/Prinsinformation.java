@@ -13,5 +13,4 @@ public class Prinsinformation implements IListEntity, Dataclass{
 		// TODO Auto-generated method stub
 		return toString();
 	}
-
 }
