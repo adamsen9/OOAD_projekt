@@ -1,92 +1,57 @@
 package Entity;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import Entity.Dataklasser.HyttePlads;
 
 public class DAL {
 	
+	
 	//Hvilken driver anvendes
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	//URL
-	static final String DB_URL = "jdbc:mysql://localhost/test";
+	static final String DB_URL = "jdbc:mysql://localhost/costakalundborg";
 	//Bruger
 	static final String USER = "root";
 	//Pass
 	static final String PASS = "";
-	
+
 	Connection conn;
 	Statement stmt;
+	ResultSet rs;
 	
-	public DAL() {
+	//Pull
+	public ResultSet pull(String sql) {
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Forbinder til database");
+			sql = String.format(Locale.US, sql);
+			
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 			stmt = conn.createStatement();
-			System.out.println("Forbindelse oprettet");
-		} catch (SQLException se) {
-			se.printStackTrace();
+			rs = stmt.executeQuery(sql);
 
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-
+		} catch(SQLException e) {
+			System.out.println("SQL Fejl: " + e.getMessage());
 		}
+		return rs;
 	}
 	
 	
-	public void hello() {
-		
-		
-	}
-	
-	public boolean insertName(int id, String name) {
+	//Push
+	public boolean push(String sql) {
 		try {
-			String sql = String.format(Locale.US, "INSERT INTO test_name VALUES (" + id + ", '" + name + "')");
+			sql = String.format(Locale.US, sql);
+			
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
-			
 
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 			return false;
 		}
 		return true;
-		
 	}
-	
-	
-	//Dataklasse kunde
-	public void printNames() {
-		
-		try {
-			String sql = String.format(Locale.US, "SELECT * FROM test_name");
-			stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) {
-				System.out.println(rs.getInt("PersonID") + " " + rs.getString("Name"));
-			}
-		} catch(SQLException e) {
-			System.out.println("SQL Fejl: " + e.getMessage());
-		}
-	}
-	
-	
-	//Dataklasse Hytterpladser
-	public boolean pushHytterPladser(HyttePlads hyttePlads) {
-		
-		
-		
-		return true;
-	}
-	
-	
-
 }
