@@ -1,52 +1,84 @@
 package Entity.Dataklasser;
 
-public class HyttePlads implements IListEntity{
-	int id, type, status, elmåler_id, måler_tilstand;
+public class HyttePlads implements Dataclass,IListEntity {
+
+	public HyttePlads(int plads_id, int type, int lavseason, int hoejseason, int iStatus, int måler_Status,
+			String sStatus) {
+		super();
+		this.plads_id = plads_id;
+		this.type = type;
+		this.lavseason = lavseason;
+		this.hoejseason = hoejseason;
+		this.iStatus = iStatus;
+		this.måler_Status = måler_Status;
+		this.sStatus = sStatus;
+	}
+
+	int plads_id, type, lavseason, hoejseason, iStatus, måler_Status;
 	String sStatus;
-	
-	
+
 	public HyttePlads() {
 
-		//kald til databasen i forbindelse med oprettelse af objekt
-		
+		// kald til databasen i forbindelse med oprettelse af objekt
+
 	}
-	
-	public int getId() {
-		return id;
+
+	public int getPlads_id() {
+		return plads_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setPlads_id(int plads_id) {
+		this.plads_id = plads_id;
 	}
+
 	public int getType() {
 		return type;
 	}
+
 	public void setType(int type) {
 		this.type = type;
 	}
-	public int getStatus() {
-		return status;
+
+	public int getLavseason() {
+		return lavseason;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+
+	public void setLavseason(int lavseason) {
+		this.lavseason = lavseason;
 	}
-	public int getElmåler_id() {
-		return elmåler_id;
+
+	public int getHoejseason() {
+		return hoejseason;
 	}
-	public void setElmåler_id(int elmåler_id) {
-		this.elmåler_id = elmåler_id;
+
+	public void setHoejseason(int hoejseason) {
+		this.hoejseason = hoejseason;
 	}
-	public int getMåler_tilstand() {
-		return måler_tilstand;
+
+	public int getiStatus() {
+		return iStatus;
 	}
-	public void setMåler_tilstand(int måler_tilstand) {
-		this.måler_tilstand = måler_tilstand;
+
+	public void setiStatus(int iStatus) {
+		this.iStatus = iStatus;
 	}
+
+	public int getMåler_Status() {
+		return måler_Status;
+	}
+
+	public void setMåler_Status(int måler_Status) {
+		this.måler_Status = måler_Status;
+	}
+
 	public String getsStatus() {
 		return sStatus;
 	}
+
 	public void setsStatus(String sStatus) {
 		this.sStatus = sStatus;
 	}
+	
 	public String prettyPrint(){
 		//TODO fix
 		return toString();

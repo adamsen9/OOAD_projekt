@@ -1,13 +1,16 @@
 package Controller;
 
+import java.util.ArrayList;
+
 import Boundary.IUI;
-import Entity.AdministrationsDAL;
+import Entity.HyttePladsDAL;
 import Entity.Dataklasser.HyttePlads;
 import Entity.Dataklasser.IListEntity;
 import Function.AdministrationsFunc;
 
 public class ConsoleAdminController extends MotherController {
-
+	static HyttePladsDAL hyttePladsDAL;
+	
 	private static final int hyttePlads = 0;
 	private static final int pris = 1;
 	private static final int sæson = 2;
@@ -35,6 +38,7 @@ public class ConsoleAdminController extends MotherController {
 	
 	public ConsoleAdminController(IUI ui) {
 		super(ui);
+		hyttePladsDAL = new HyttePladsDAL();
 	}
 	
 
@@ -191,7 +195,7 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		HyttePlads gammelHP = hyttePladsDAL.getHyttePlads(id);
 		if (gammelHP == null){
 			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
 			return;
@@ -213,14 +217,14 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = AdministrationsDAL.getHyttePlads(id);
+		HyttePlads gammelHP = hyttePladsDAL.getHyttePlads(id);
 		if (gammelHP == null){
 			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
 			return;
 		}
 		
 		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.prettyPrint())){
-			AdministrationsDAL.deleteHyttePlads(gammelHP.getId());
+			hyttePladsDAL.deleteHyttePlads(gammelHP.getPlads_id());
 		}
 	}
 	
