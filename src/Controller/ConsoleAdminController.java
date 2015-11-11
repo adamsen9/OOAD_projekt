@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import Boundary.IUI;
 import Entity.HyttePladsDAL;
+import Entity.PrisDAL;
+import Entity.SæsonDAL;
 import Entity.Dataklasser.HyttePlads;
 import Entity.Dataklasser.IListEntity;
 import Function.AdministrationsFunc;
@@ -115,16 +117,16 @@ public class ConsoleAdminController extends MotherController {
 	
 	//Vis 
 	private void visAlle(int typpe){
-		IListEntity[] resultat = null;
+		ArrayList<IListEntity> resultat = null;
 		if (typpe == hyttePlads){
 			ui.besked("Hytter og pladser \n");
-			resultat = AdministrationsDAL.getHyttePladser();
+			resultat = new ArrayList<IListEntity>(HyttePladsDAL.getHyttePladser());
 		} else if (typpe == pris){
 			ui.besked("Priser \n");
-			resultat = AdministrationsDAL.getPriser();
+			resultat = new ArrayList<IListEntity>(PrisDAL.getPriser());
 		} else if (typpe == sæson){
 			ui.besked("sæsoner \n");
-			resultat = AdministrationsDAL.getSæsoner();
+			resultat = new ArrayList<IListEntity>(SæsonDAL.getSæsoner());
 		}
 		
 		if (resultat == null){

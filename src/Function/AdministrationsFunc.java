@@ -1,19 +1,20 @@
 package Function;
 
-import Entity.AdministrationsDAL;
+
+import Entity.HyttePladsDAL;
 import Entity.Dataklasser.HyttePlads;
 
 public class AdministrationsFunc {
 
 	public static void opretHyttePlads(String[] attributes){
 		HyttePlads ny = hyttePladsFraArray(attributes);
-		AdministrationsDAL.createHyttePlads(ny);
+		HyttePladsDAL.createHyttePlads(ny);
 	}
 	
 	public static void retHyttePlads(int id, String[] attributes){
 		HyttePlads ny = hyttePladsFraArray(attributes);
-		ny.setId(id);
-		AdministrationsDAL.updateHyttePlads(ny);
+		ny.setPlads_id(id);
+		HyttePladsDAL.updateHyttePlads(ny);
 	}
 	
 	private static HyttePlads hyttePladsFraArray(String[] attributes){
