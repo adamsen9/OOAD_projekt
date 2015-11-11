@@ -1,9 +1,5 @@
 
 package Entity;
-import Entity.Dataklasser.Kunde;
-import Entity.Dataklasser.Reservation;
-
-import java.sql.*;
 import java.util.ArrayList;
 
 public class ReservationsDAL {

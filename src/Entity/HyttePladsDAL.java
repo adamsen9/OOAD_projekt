@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Entity.Dataklasser.HyttePlads;
-import Entity.Dataklasser.Kunde;
 
 public class HyttePladsDAL {
 
+	//TODO fix så dette her virker uden at man skal oprette en instans for at kalde statiske metoder
 	static DAL dal;
 
 	public HyttePladsDAL() {
