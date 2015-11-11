@@ -43,7 +43,7 @@ public class KundeController extends MotherController {
 		}
 	}
 
-	public static void opretKunde() {
+	public void opretKunde() {
 		ui.besked("Oprettelse af ny kunde");
 		ui.besked("Indtast -1 på et givent tidspunkt for at afbryde");
 
@@ -66,7 +66,7 @@ public class KundeController extends MotherController {
 		}
 	}
 
-	public static void alleKunder() {
+	public void alleKunder() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		kundeList = kundeDAL.pullAll();
 		ui.besked("Liste over alle kunder:");
@@ -75,7 +75,7 @@ public class KundeController extends MotherController {
 		}
 	}
 	
-	public static void getKunde() {
+	public void getKunde() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		
 		String[] menuItems = {"Annuller","Navn","Telefonnummner","ID"};

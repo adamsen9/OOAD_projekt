@@ -1,7 +1,5 @@
 package Controller;
 
-import java.io.IOException;
-
 import Boundary.IUI;
 
 public class MainMenuController extends MotherController {
@@ -32,6 +30,7 @@ public class MainMenuController extends MotherController {
 				break;
 			case 3:
 				// Tjek ind
+				// TODO exception her bør håndteres i  reservation controller
 				try {
 					reservC.Checkin();
 				} catch (Exception e) {

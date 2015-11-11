@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import Boundary.IUI;
-import Entity.ReservationsDAL;
-import Entity.Dataklasser.Kunde;
 import Entity.Dataklasser.Reservation;
 
 public class ReservationsController extends MotherController{
@@ -47,7 +45,7 @@ public class ReservationsController extends MotherController{
 	}
 	
 	public void Checkin() throws NumberFormatException, IOException{
-		//do stuff
+		//TODO stuff
 		int start_day, start_month, start_year;
 		int end_day, end_month, end_year;
 		ui.besked("Indtast den dag du gerne vil starte dit ophold");
@@ -66,17 +64,17 @@ public class ReservationsController extends MotherController{
 	}
 	
 	public void Checkout(){
-		//do stuff
+		//TODO stuff
 		
 	}
 	
 	public void createReservation(){
-		//do stuff
+		//TODO stuff
 		
 	}
 	
 	public void showReservations(){
-		//do stuff
+		// stuff
 		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "2 personer hytte, lille"};
 		
 		while (true) {

@@ -6,12 +6,10 @@ import Boundary.IUI;
 import Entity.HyttePladsDAL;
 import Entity.PrisDAL;
 import Entity.SæsonDAL;
-import Entity.Dataklasser.HyttePlads;
 import Entity.Dataklasser.IListEntity;
 import Function.AdministrationsFunc;
 
 public class ConsoleAdminController extends MotherController {
-	static HyttePladsDAL hyttePladsDAL;
 	
 	private static final int hyttePlads = 0;
 	private static final int pris = 1;
@@ -39,7 +37,6 @@ public class ConsoleAdminController extends MotherController {
 	
 	public ConsoleAdminController(IUI ui) {
 		super(ui);
-		hyttePladsDAL = new HyttePladsDAL();
 	}
 	
 
@@ -129,7 +126,7 @@ public class ConsoleAdminController extends MotherController {
 			resultat = new ArrayList<IListEntity>(SæsonDAL.getSæsoner());
 		}
 		
-		if (resultat == null){
+		if (resultat.isEmpty()){
 			if (typpe == hyttePlads){
 				ui.besked("Der er ingen hytter eller pladser i systemet\n");
 			} else if (typpe == pris){
@@ -196,19 +193,42 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = hyttePladsDAL.getHyttePlads(id);
-		if (gammelHP == null){
+		IListEntity gammel = null;
+		if (typpe == hyttePlads){
+			gammel = HyttePladsDAL.getHyttePlads(id);
+		} else if (typpe == pris){
+			gammel = PrisDAL.getPris(id);
+		} else if (typpe == sæson){
+			gammel = SæsonDAL.getSæson(id);
+		}
+
+		if (gammel == null){
 			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
 			return;
 		}
 		
-		String[] svar = ui.multiInput("Ret plads ", hyttePladsAttributter);
-		AdministrationsFunc.retHyttePlads(gammelHP.getId(), svar);
+		String[] svar = ui.multiInput("Indtast nye oplysninger for " + sTyppe, sNavne);
+		if (typpe == hyttePlads){
+			AdministrationsFunc.retHyttePlads(gammel.getId(), svar);
+		} else if (typpe == pris){
+			AdministrationsFunc.retPris(gammel.getId(), svar);
+		} else if (typpe == sæson){
+			AdministrationsFunc.retSæson(gammel.getId(), svar);
+		}
 	}
 	
 	// Slet
 	private void slet(int typpe) {
-		String sId = ui.input("Indtast id på hytte eller plads");
+		String sTyppe = "";
+		if (typpe == hyttePlads){
+			sTyppe = "hytte eller plads";
+		} else if (typpe == pris){
+			sTyppe = "pris";
+		} else if (typpe == sæson){
+			sTyppe = "sæson";
+		}
+
+		String sId = ui.input("Indtast id på "+ sTyppe);
 		
 		int id;
 		try{
@@ -218,14 +238,30 @@ public class ConsoleAdminController extends MotherController {
 			return;
 		}
 		
-		HyttePlads gammelHP = hyttePladsDAL.getHyttePlads(id);
-		if (gammelHP == null){
-			ui.besked("Der findes ingen hytter eller pladser med det indtastede ID\n");
+		IListEntity gammel = null;
+		if (typpe == hyttePlads){
+			gammel = HyttePladsDAL.getHyttePlads(id);
+		} else if (typpe == pris){
+			gammel = PrisDAL.getPris(id);
+		} else if (typpe == sæson){
+			gammel = SæsonDAL.getSæson(id);
+		}
+
+		if (gammel == null){
+			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
 			return;
 		}
 		
-		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammelHP.prettyPrint())){
-			hyttePladsDAL.deleteHyttePlads(gammelHP.getPlads_id());
+		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammel.prettyPrint())){
+			if (typpe == hyttePlads){
+				HyttePladsDAL.deleteHyttePlads(gammel.getId());
+			} else if (typpe == pris){
+				gammel = PrisDAL.getPris(id);
+				PrisDAL.deletePris(gammel.getId());
+			} else if (typpe == sæson){
+				gammel = SæsonDAL.getSæson(id);
+				SæsonDAL.deleteSæson(gammel.getId());
+			}
 		}
 	}
 	

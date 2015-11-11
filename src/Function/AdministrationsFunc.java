@@ -32,4 +32,14 @@ public class AdministrationsFunc {
 		
 	}
 
+	public static void retPris(int id, String[] svar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void retSæson(int id, String[] svar) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
