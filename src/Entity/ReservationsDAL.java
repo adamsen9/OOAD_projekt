@@ -18,7 +18,7 @@ public class ReservationsDAL {
 
 
 //	public static ArrayList<Reservation> showCabinReservation(int valg) {
-//		String sql = "SELECT * FROM HytterPladser WHERE ";
+		String sql = "SELECT * FROM HytterPladser WHERE ";
 //		
 //		if(valg == 1) {
 //			sql += "type = '" + valg + "'";
