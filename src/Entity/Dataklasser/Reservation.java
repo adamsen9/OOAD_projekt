@@ -1,14 +1,15 @@
 package Entity.Dataklasser;
 
 public class Reservation implements Dataclass {
-	int res_id, state, start_dato, slut_dato, slut_el, plads_id, kunde_id, antal_voksne, antal_børn;
+	int res_id, state, slut_el, plads_id, kunde_id, antal_voksne, antal_børn;
+	String start_dato, slut_dato;
 	
 	public Reservation() {
 		//kald til databasen i forbindelse med oprettelse af objekt
 	}
 	
 	
-	public Reservation(int res_id, int state, int start_dato, int slut_dato, int slut_el, int plads_id, int kunde_id, int antal_voksne, int antal_børn){
+	public Reservation(int res_id, int state, String start_dato, String slut_dato, int slut_el, int plads_id, int kunde_id, int antal_voksne, int antal_børn){
 		this.res_id = res_id;
 		this.state = state;
 		this.start_dato = start_dato;
@@ -61,19 +62,19 @@ public class Reservation implements Dataclass {
 		this.state = state;
 	}
 
-	public int getStart_dato() {
+	public String getStart_dato() {
 		return start_dato;
 	}
 
-	public void setStart_dato(int start_dato) {
+	public void setStart_dato(String start_dato) {
 		this.start_dato = start_dato;
 	}
 
-	public int getSlut_dato() {
+	public String getSlut_dato() {
 		return slut_dato;
 	}
 
-	public void setSlut_dato(int slut_dato) {
+	public void setSlut_dato(String slut_dato) {
 		this.slut_dato = slut_dato;
 	}
 

@@ -28,8 +28,8 @@ public class ReservationsDAL {
 				TypeList.add(new Reservation(
 						rs.getInt("res_id"),
 						rs.getInt("state"),
-						rs.getInt("start_dato"),
-						rs.getInt("slut_dato"),
+						rs.getString("start_dato"),
+						rs.getString("slut_dato"),
 						rs.getInt("slut_el"),
 						rs.getInt("plads_id"),
 						rs.getInt("kunde_id"),

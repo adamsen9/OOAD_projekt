@@ -49,49 +49,41 @@ public class ReservationsController extends MotherController{
 	
 	public void Checkin() throws NumberFormatException, IOException{
 		//TODO stuff
-		int start_day, start_month, start_year;
-		int end_day, end_month, end_year;
-		ui.besked("Indtast den dag du gerne vil starte dit ophold");
-		start_day = Day();
-		ui.besked("Indtast den måned du gerne vil starte dit ophold");
-		start_month = Month();
-		ui.besked("Indtast det år du gerne vil starte dit ophold");
-		start_year = Year();
-		
-		ui.besked("Indtast den dag du gerne vil slutte dit ophold");
-		end_day = Day();
-		ui.besked("Indtast den måned du gerne vil slutte dit ophold");
-		end_month = Month();
-		ui.besked("Indtast det år du gerne vil slutte dit ophold");
-		end_year = Year();
-		
-		ui.besked("vælg hvilken type hytte du gerne vil leje");
-		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "Lille 2 personer hytte"};
-		ArrayList<Reservation> TypeList;
-		ReservationsDAL hej = new ReservationsDAL();
-		while (true) {
-			int valg = ui.visMenu("type", menulist);
-						switch (valg) {
-						case 0:
-							//Sluk programmet
-							return;
-						case 1:
-							TypeList = hej.getHytteReservationsByType(valg);
-							break;
-						case 2:
-							TypeList = hej.getHytteReservationsByType(valg);
-							break;
-						case 3:
-							TypeList = hej.getHytteReservationsByType(valg);
-							break;
-						case 4:
-							TypeList = hej.getHytteReservationsByType(valg);
-							break;
-						case 5:
-							TypeList = hej.getHytteReservationsByType(valg);
-							break;
-						}
-					}
+//		int start_day, start_month, start_year;
+//		int end_day, end_month, end_year;
+//		ui.besked("Indtast datoen du gerne vil starte dit ophold i DD/MM/YY");
+//		end_day = Day();
+//		
+//		ui.besked("Indtast datoen du gerne vil starte dit ophold i DDMMYY");
+//		end_day = Day();
+//		
+//		ui.besked("vælg hvilken type hytte du gerne vil leje");
+//		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "Lille 2 personer hytte"};
+//		ArrayList<Reservation> TypeList;
+//		ReservationsDAL hej = new ReservationsDAL();
+//		while (true) {
+//			int valg = ui.visMenu("type", menulist);
+//						switch (valg) {
+//						case 0:
+//							//Sluk programmet
+//							return;
+//						case 1:
+//							TypeList = hej.getHytteReservationsByType(valg);
+//							break;
+//						case 2:
+//							TypeList = hej.getHytteReservationsByType(valg);
+//							break;
+//						case 3:
+//							TypeList = hej.getHytteReservationsByType(valg);
+//							break;
+//						case 4:
+//							TypeList = hej.getHytteReservationsByType(valg);
+//							break;
+//						case 5:
+//							TypeList = hej.getHytteReservationsByType(valg);
+//							break;
+//						}
+//					}
 	}
 	
 	public void Checkout(){
@@ -141,20 +133,39 @@ public int Month(){
 }
 	
 	
-	public int Day(){
-		int day;
-		while(true) {
+	public String Day(){
+		String date = "hej";
+		while (true) {
 			try {
-				day = Integer.parseInt(ui.input(" "));
-				if(day < 1 || day > 31) {
-					System.out.println("Indtast en dag mellem 1 og 31");
-				}else{
-					return day;
+				date = ui.input("");
+				
+				if(date.length()>10){
+					ui.besked("Du har ikke indtastet startdatoen i formatet DD/MM/YY, f.eks 01/10/2015. Prøv igen");
+					break;
 				}
-			} catch(Exception e) {
-				System.out.println("Indtast et heltal");
+				
+				String[] parts = date.split("/");
+				if(parts[1].length()!=2 || parts[2].length()!=2 || parts[3].length()!=4){
+					ui.besked("Du har ikke indtastet startdatoen i formatet DD/MM/YY, f.eks 01/10/2015. Prøv igen");
+					break;
+				}
+				
+				if(parts[0].startsWith("0")){
+					
+				}
+				
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e);
 			}
+			
 		}
+		return date;
+		
+		
+		
 	}
 	
 	public int Year(){
