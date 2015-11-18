@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import Boundary.IUI;
+import Entity.HyttePladsDAL;
+import Entity.ReservationsDAL;
+import Entity.Dataklasser.HyttePlads;
 import Entity.Dataklasser.Reservation;
 
 public class ReservationsController extends MotherController{
@@ -61,11 +64,45 @@ public class ReservationsController extends MotherController{
 		end_month = Month();
 		ui.besked("Indtast det år du gerne vil slutte dit ophold");
 		end_year = Year();
+		
+		ui.besked("vælg hvilken type hytte du gerne vil leje");
+		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "Lille 2 personer hytte"};
+		ArrayList<Reservation> TypeList;
+		ReservationsDAL hej = new ReservationsDAL();
+		while (true) {
+			int valg = ui.visMenu("type", menulist);
+						switch (valg) {
+						case 0:
+							//Sluk programmet
+							return;
+						case 1:
+							TypeList = hej.getHytteReservationsByType(valg);
+							break;
+						case 2:
+							TypeList = hej.getHytteReservationsByType(valg);
+							break;
+						case 3:
+							TypeList = hej.getHytteReservationsByType(valg);
+							break;
+						case 4:
+							TypeList = hej.getHytteReservationsByType(valg);
+							break;
+						case 5:
+							TypeList = hej.getHytteReservationsByType(valg);
+							break;
+						}
+					}
 	}
 	
 	public void Checkout(){
 		//TODO stuff
 		
+	}
+	
+	public void testOverLap(int start_day, int start_month, int start_year, int end_day, int end_month, int end_year, Reservation reservation){
+		if(start_year ==1){
+			
+		}
 	}
 	
 	public void createReservation(){
@@ -75,32 +112,11 @@ public class ReservationsController extends MotherController{
 	
 	public void showReservations(){
 		// stuff
-		String[] menulist = {"tilbage", "Luksushytte med tagteresse", "Luksushytte", "4 personers hytte", "2 personer hytte", "2 personer hytte, lille"};
-		
-		while (true) {
-			int valg = ui.visMenu("Costa Kalundborg", menulist);
-						switch (valg) {
-						case 0:
-							//Sluk programmet
-							return;
-						case 1:
-							showCabinReservations(valg);
-							break;
-						case 2:
-							showCabinReservations(valg);
-							break;
-						case 3:
-							showCabinReservations(valg);
-							break;
-						case 4:
-							showCabinReservations(valg);
-							break;
-						case 5:
-							showCabinReservations(valg);
-							break;
-						}
-					}
-		
+	}
+
+private void getCabinReservations(int valg) {
+		// TODO Auto-generated method stub
+	
 	}
 
 private void showCabinReservations(int valg){
@@ -114,7 +130,7 @@ public int Month(){
 		try {
 			month = Integer.parseInt(ui.input(" "));
 			if(month < 1 || month >= 13) {
-				ui.besked("Indtast tal mellem 0 og 12");
+				ui.besked("Indtast tal mellem 1 og 12");
 			}else{
 				return month;
 			}

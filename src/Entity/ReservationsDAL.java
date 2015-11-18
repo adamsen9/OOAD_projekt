@@ -1,14 +1,15 @@
 
 package Entity;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import Entity.Dataklasser.HyttePlads;
+import Entity.Dataklasser.Reservation;
 
 public class ReservationsDAL {
 	static DAL dal;
-	ArrayList<Integer> cabinLuxWT = new ArrayList<Integer>();
-	ArrayList<Integer> cabinLux = new ArrayList<Integer>();
-	ArrayList<Integer> cabin4Pers = new ArrayList<Integer>();
-	ArrayList<Integer> cabin2Pers = new ArrayList<Integer>();
-	ArrayList<Integer> cabin2PersSmall = new ArrayList<Integer>();
+
 	
 	
 	
@@ -16,47 +17,32 @@ public class ReservationsDAL {
 		dal = new DAL();	
 		}
 
+	public static ArrayList<Reservation> getHytteReservationsByType(int valg) {
+		String sql = "SELECT res_id,state,start_dato,slut_dato,slut_el,plads_id,kunde_id,antal_voksne,antal_børn FROM Reservation NATURAL JOIN HytterPladser WHERE HytterPladser.type = " + valg;
+		ArrayList<Reservation> TypeList = new ArrayList<Reservation>();
+		
+		ResultSet rs = dal.pull(sql);
+		try {
 
-//	public static ArrayList<Reservation> showCabinReservation(int valg) {
-		String sql = "SELECT * FROM HytterPladser WHERE ";
-//		
-//		if(valg == 1) {
-//			sql += "type = '" + valg + "'";
-//			
-//		}
-//		
-//		if(valg == 2) {
-//			sql += "type = '" + valg + "'";
-//			
-//		}
-//		
-//		if(valg == 3) {
-//			sql += "type = '" + valg + "'";
-//		}
-//		
-//		if(valg == 4) {
-//			sql += "type = '" + valg + "'";
-//		}
-//		
-//		if(valg == 5) {
-//			sql += "type = '" + valg + "'";
-//		}
-//		
-//		ResultSet rs = dal.pull(sql);
-//		ArrayList<Reservation> ReservList = new ArrayList<Reservation>();
-//		
-//		try {
-//			while (rs.next()) {
-//				ReservList.add(new Reservation(rs.getInt("plads_id"), rs.getInt("type"), rs.getInt("iStatus"),rs.getString("sStatus"),rs.getInt("elmaaler_id"),rs.getInt("maaler_status")));
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("SQL Fejl: " + e.getMessage());
-//			return null;
-//		}
-//		
-//		return null;
-//	}
-	
+			while (rs.next()) {
+				TypeList.add(new Reservation(
+						rs.getInt("res_id"),
+						rs.getInt("state"),
+						rs.getInt("start_dato"),
+						rs.getInt("slut_dato"),
+						rs.getInt("slut_el"),
+						rs.getInt("plads_id"),
+						rs.getInt("kunde_id"),
+						rs.getInt("antal_voksne"),
+						rs.getInt("antal_børn")
+						));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL Fejl: " + e.getMessage());
+			return null;
+		}
+		return TypeList;
+	}
 	
 	}
 	
