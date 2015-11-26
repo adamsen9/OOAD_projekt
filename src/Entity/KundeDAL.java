@@ -6,13 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class KundeDAL {
-	DAL dal;
 
-	public KundeDAL() {
-		dal = new DAL();
-	}
-
-	public ArrayList<Kunde> pull(String valg, int i) {
+	public static ArrayList<Kunde> pull(String valg, int i) {
 		String sql = "SELECT * FROM kunde WHERE ";
 		
 		//Navn
@@ -31,7 +26,7 @@ public class KundeDAL {
 		}
 		
 		
-		ResultSet rs = dal.pull(sql);
+		ResultSet rs = DAL.pull(sql);
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		try {
 			while (rs.next()) {
@@ -45,9 +40,9 @@ public class KundeDAL {
 	}
 
 	
-	public ArrayList<Kunde> pullAll() {
+	public static ArrayList<Kunde> pullAll() {
 		String sql = "SELECT * FROM kunde";
-		ResultSet rs = dal.pull(sql);
+		ResultSet rs = DAL.pull(sql);
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		try {
 			while (rs.next()) {
@@ -60,15 +55,10 @@ public class KundeDAL {
 		return kundeList;
 	}
 
-	public Kunde pull() {
-
-		return new Kunde();
-	}
-
-	public int pushNew(Kunde kunde) {
+	public static int pushNew(Kunde kunde) {
 		String sql = "SELECT * FROM kunde";
 		ArrayList<Integer> kundeID = new ArrayList<Integer>();
-		ResultSet rs = dal.pull(sql);
+		ResultSet rs = DAL.pull(sql);
 		// Ledigt ID findes
 		try {
 			while (rs.next()) {
@@ -85,14 +75,14 @@ public class KundeDAL {
 			if (!(id == counter)) {
 				sql = "INSERT INTO kunde VALUES + '" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
 						+ "')";
-				inserted = dal.push(sql);
+				inserted = DAL.push(sql);
 				return counter;
 			}
 			counter++;
 		}
 
 		sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf() + "')";
-		if(dal.push(sql)) {
+		if(DAL.push(sql)) {
 			return counter;
 			
 		} else {
@@ -101,8 +91,8 @@ public class KundeDAL {
 
 	}
 
-	public boolean update(Kunde kunde) {
-
+	public static boolean update(Kunde kunde) {
+		// TODO implement this
 		return false;
 	}
 }

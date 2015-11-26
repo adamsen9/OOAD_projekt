@@ -7,11 +7,9 @@ import Entity.Dataklasser.Kunde;
 import java.util.ArrayList;
 
 public class KundeController extends MotherController {
-	static KundeDAL kundeDAL;
 
 	public KundeController(IUI ui) {
 		super(ui);
-		kundeDAL = new KundeDAL();
 	}
 
 	public void run() {
@@ -61,14 +59,14 @@ public class KundeController extends MotherController {
 		}
 
 		Kunde kunde = new Kunde(navn, tlf);
-		if (kundeDAL.pushNew(kunde) != 0) {
+		if (KundeDAL.pushNew(kunde) != 0) {
 			ui.besked("Kunde oprettet");
 		}
 	}
 
 	public void alleKunder() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
-		kundeList = kundeDAL.pullAll();
+		kundeList = KundeDAL.pullAll();
 		ui.besked("Liste over alle kunder:");
 		for (Kunde kunde : kundeList) {
 			ui.besked("ID: " + kunde.getId() + " Navn: " + kunde.getNavn() + " Tlf: " + kunde.getTlf());
@@ -88,15 +86,15 @@ public class KundeController extends MotherController {
 			return;
 		case 1:
 			// Navn
-			kundeList = kundeDAL.pull(ui.input("Indtast navn"),valg);
+			kundeList = KundeDAL.pull(ui.input("Indtast navn"),valg);
 			break;
 		case 2:
 			// Telefonnumer
-			kundeList = kundeDAL.pull(ui.input("Indtast telefonnummer"),valg);
+			kundeList = KundeDAL.pull(ui.input("Indtast telefonnummer"),valg);
 			break;
 		case 3:
 			// ID
-			kundeList = kundeDAL.pull(ui.input("Indtast ID"),valg);
+			kundeList = KundeDAL.pull(ui.input("Indtast ID"),valg);
 			break;
 		default:
 			break;

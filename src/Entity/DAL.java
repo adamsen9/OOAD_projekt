@@ -16,40 +16,36 @@ public class DAL {
 	//Pass
 	static final String PASS = "";
 
-	Connection conn;
-	Statement stmt;
-	ResultSet rs;
-	
 	//Pull
-	public ResultSet pull(String sql) {
+	public static ResultSet pull(String sql) {
 		try {
 			sql = String.format(Locale.US, sql);
 			
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-
+			return rs;
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
+			return null;
 		}
-		return rs;
 	}
 	
 	
 	//Push
-	public boolean push(String sql) {
+	public static boolean push(String sql) {
 		try {
 			sql = String.format(Locale.US, sql);
 			
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			stmt = conn.createStatement();
+			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 
+			return true;
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 			return false;
 		}
-		return true;
 	}
 }

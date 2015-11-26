@@ -8,18 +8,11 @@ import Entity.Dataklasser.HyttePlads;
 
 public class HyttePladsDAL {
 
-	//TODO fix så dette her virker uden at man skal oprette en instans for at kalde statiske metoder
-	static DAL dal;
-
-	public HyttePladsDAL() {
-		dal = new DAL();
-	}
-
 	public static ArrayList<HyttePlads> getHyttePladser() {
 		String sql = "SELECT * FROM HyttePlads";
 		ArrayList<HyttePlads> hyttePladsList = new ArrayList<HyttePlads>();
 		
-		ResultSet rs = dal.pull(sql);
+		ResultSet rs = DAL.pull(sql);
 		try {
 
 			while (rs.next()) {
@@ -41,7 +34,7 @@ public class HyttePladsDAL {
 
 	public static HyttePlads getHyttePlads(int id) {
 		String sql = "SELECT * FROM HyttePlads WHERE plads_id = ";
-		ResultSet rs = dal.pull(sql);
+		ResultSet rs = DAL.pull(sql);
 		HyttePlads hyttePlads;
 		try {
 			;

@@ -30,13 +30,7 @@ public class MainMenuController extends MotherController {
 				break;
 			case 3:
 				// Tjek ind
-				// TODO exception her bør håndteres i  reservation controller
-				try {
-					reservC.Checkin();
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-				
+				reservC.Checkin();
 				break;
 			case 4:
 				// Tjek ud

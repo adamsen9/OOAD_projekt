@@ -59,7 +59,7 @@ public class Reservation implements Dataclass {
 	}
 
 	public void setStatus(int status) {
-		this.state = state;
+		this.state = status;
 	}
 
 	public String getStart_dato() {
