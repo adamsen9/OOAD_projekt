@@ -65,4 +65,9 @@ public class AdministrationsFunc {
 		return null;
 	}
 
+	public static ArrayList<Hytte> getHytterAfType(String hytteType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

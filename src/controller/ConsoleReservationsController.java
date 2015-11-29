@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import boundary.IUI;
@@ -7,6 +8,7 @@ import entity.ReservationsDAL;
 import entity.dataklasser.HyttePlads;
 import entity.dataklasser.Kunde;
 import entity.dataklasser.Reservation;
+import function.FunctionException;
 import function.ReservationsFunc;
 
 
@@ -46,14 +48,14 @@ public class ConsoleReservationsController extends GeneralController{
 		
 	}
 	
-	public void Checkin() {
+	public void tjekInd() {
 		// find/opret kunde
 		Kunde kunde = kc.vælgKunde();
 		if (kunde == null)
 			return;
 		
 		// find/opret reservation
-		String menuTittel = "Check ind - vælg reservation";
+		String menuTittel = "Tjek ind - vælg reservation";
 		String[] menuOptions = {
 				"Annullér", 
 				"Ny reservation", 
@@ -71,10 +73,10 @@ public class ConsoleReservationsController extends GeneralController{
 		if (reservationer == null)
 			return;
 		
-		ReservationsFunc.checkInd(reservationer);
+		ReservationsFunc.tjekInd(reservationer);
 	}
 	
-	public void Checkout(){
+	public void tjekUd(){
 		//TODO stuff
 	}
 	
@@ -109,15 +111,31 @@ public class ConsoleReservationsController extends GeneralController{
 				"Antal hunde (Intet valg = "+ Reservation.STANDARD_HUND +")",
 		};
 		
-		String[] svar = ui.multiInput("Indtast oplysninger på ny reservation til /n" + kunde.prettyPrint(), sNavne);
+		Reservation ny = null;
+		do {
+			String[] svar = 
+					ui.multiInput(
+							"Indtast oplysninger på ny reservation til \n" 
+							+ kunde.prettyPrint(), sNavne);
+			try {
+				ny = ReservationsFunc.nyFraArray(svar);
+			} catch (FunctionException e) {
+				ArrayList<String> beskedder = e.getFejlbeskedder(); 
+				for (String fejl: beskedder){
+					ui.besked(fejl);
+				}
+				if (!ui.bekræft("ønsker du at prøve igen ?"))
+					return null;
+			}
+		} while (ny == null);
 
-		Reservation ny = ReservationsFunc.nyFraArray(svar);
 		ny.setPlads_type(hyttePlads.getType());
 		ny.setPlads_id(hyttePlads.getId());
 		
-		while(!ReservationsFunc.checkLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato(), antal)){
-			int input = ui.visMenu("Der er ikke tilstækkelige ledige hytter/pladser af den valgte type i valgte tidsrum\n"
-					+ "Vælg handling", 
+		int ledige = ReservationsFunc.tjekLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato());
+		while(ledige < antal){
+			int input = ui.visMenu("Der er kun "+ ledige +" ledige hytter/pladser "
+					+ "af den valgte type i det valgte tidsrum\nVælg handling", 
 					new String[]{
 							"Afbryd reservation",
 							"Vælg en anden ankomstsdato",
@@ -128,10 +146,11 @@ public class ConsoleReservationsController extends GeneralController{
 			case 0:
 				return null;
 			case 1:
-				ny.setStart_dato(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)"));
+				
+				ny.setStart_dato(LocalDate.parse(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)")));
 				break;
 			case 2:
-				ny.setSlut_dato(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger"));
+				ny.setSlut_dato(LocalDate.parse(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger")));
 				break;
 			case 3:
 				hyttePlads = ac.vælgHyttePlads();
@@ -149,6 +168,7 @@ public class ConsoleReservationsController extends GeneralController{
 				}
 				break;
 			}
+			ledige = ReservationsFunc.tjekLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato());
 		}
 		
 		ArrayList<Reservation> nyeReservationer = new ArrayList<Reservation>(); 
@@ -172,9 +192,54 @@ public class ConsoleReservationsController extends GeneralController{
 	}
 	
 	public ArrayList<Reservation> vælgReservationForKunde(int kundeId){
-
+		return vælgReservationForKunde(kundeId, -1);
+	}
+	
+	
+	public ArrayList<Reservation> vælgReservationForKunde(int kundeId, int status){
+		ArrayList<Reservation> kundeReservationer = ReservationsFunc.getReservationerForKunde(kundeId);
+		if (status >= 0){
+			for(int i = 0; i < kundeReservationer.size();){
+				if (kundeReservationer.get(i).getStatus() == status){
+					i++;
+				} else {
+					kundeReservationer.remove(i);
+				}
+			}
+		}
 		
-		return null;
+		int size = kundeReservationer.size();
+		String[] menuValg = new String[size+2];
+		menuValg[0] = "Afbryd";
+		menuValg[size+1] = "Gå viddere";
+		
+		boolean[] valgt = new boolean[size];
+				
+		while(true) {
+			int i = 1;
+			for (Reservation res : kundeReservationer){
+				menuValg[i] = res.prettyPrint();
+				if (valgt[i-1]){
+					menuValg[i] += " *Valgt";
+				}
+				i++;
+			}
+			int input = ui.visMenu("Vælg reservationer der skal tjekkes ind", menuValg);
+			if (input == 0)
+				return null;
+			
+			if (input != size +1){
+				valgt[input] = !valgt[input]; 
+			} else
+				break;
+		}
+		
+		ArrayList<Reservation> returnList = new ArrayList<Reservation>();
+		for (int i = 0; i < size; i++){
+			if (valgt[i])
+				returnList.add(kundeReservationer.get(i));
+		}
+		return returnList;
 	}
 	
 	public ArrayList<Reservation> reservationerForKunde(int kundeId){

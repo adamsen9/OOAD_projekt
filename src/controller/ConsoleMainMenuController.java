@@ -30,11 +30,11 @@ public class ConsoleMainMenuController extends GeneralController {
 				break;
 			case 3:
 				// Tjek ind
-				reservC.Checkin();
+				reservC.tjekInd();
 				break;
 			case 4:
 				// Tjek ud
-				reservC.Checkout();
+				reservC.tjekUd();
 				break;
 			case 5:
 				//Lejradministration

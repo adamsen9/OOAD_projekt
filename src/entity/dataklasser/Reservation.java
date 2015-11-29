@@ -1,10 +1,16 @@
 package entity.dataklasser;
 
+import java.time.LocalDate;
+
 public class Reservation {
 	
 	public static final int STANDARD_VOKSNE = 1;
 	public static final int STANDARD_BØRN = 0;
 	public static final int STANDARD_HUND = 0;
+	
+	public static final int STATUS_RESERVERET = 0;
+	public static final int STATUS_I_BRUG = 1;
+	public static final int STATUS_AFREGNET = 2;
 	
 	int res_id, 
 		status, 
@@ -17,13 +23,13 @@ public class Reservation {
 		antal_børn, 
 		antal_hunde;
 	
-	String start_dato, slut_dato;
+	LocalDate start_dato, slut_dato;
 	
 	public Reservation() {
 	}
 	
 	public Reservation(int res_id, int status, int start_el, int slut_el, int plads_type, int plads_id, int kunde_id,
-			int antal_voksne, int antal_børn, int antal_hunde, String start_dato, String slut_dato) {
+			int antal_voksne, int antal_børn, int antal_hunde, LocalDate start_dato, LocalDate slut_dato) {
 		super();
 		this.res_id = res_id;
 		this.status = status;
@@ -63,7 +69,6 @@ public class Reservation {
 		this.antal_børn = antal_børn;
 	}
 
-
 	public int getId() {
 		return res_id;
 	}
@@ -80,19 +85,19 @@ public class Reservation {
 		this.status = status;
 	}
 
-	public String getStart_dato() {
+	public LocalDate getStart_dato() {
 		return start_dato;
 	}
 
-	public void setStart_dato(String start_dato) {
+	public void setStart_dato(LocalDate start_dato) {
 		this.start_dato = start_dato;
 	}
 
-	public String getSlut_dato() {
+	public LocalDate getSlut_dato() {
 		return slut_dato;
 	}
 
-	public void setSlut_dato(String slut_dato) {
+	public void setSlut_dato(LocalDate slut_dato) {
 		this.slut_dato = slut_dato;
 	}
 
@@ -146,5 +151,9 @@ public class Reservation {
 
 	public void setAntal_hunde(int antal_hunde) {
 		this.antal_hunde = antal_hunde;
+	}
+	
+	public String prettyPrint(){
+		return "ID:" + getId() + " Start:" + getStart_dato() + " Slut:" + getSlut_dato() + " Type:" + HyttePlads.TYPER[getPlads_type()];
 	}
 }
