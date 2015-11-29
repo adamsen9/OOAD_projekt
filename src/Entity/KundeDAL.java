@@ -6,6 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class KundeDAL {
+	
+	public static Kunde pull(int id){
+		return pull(Integer.toString(id),3).get(0);
+	}
 
 	public static ArrayList<Kunde> pull(String valg, int i) {
 		String sql = "SELECT * FROM kunde WHERE ";
@@ -13,18 +17,17 @@ public class KundeDAL {
 		//Navn
 		if(i == 1) {
 			sql += "kunde_navn = '" + valg + "'";
-			
 		}
+
 		//tlf
 		if(i == 2) {
 			sql += "tlf = '" + valg + "'";
-			
 		}
+
 		//id
 		if(i == 3) {
 			sql += "kunde_id = '" + valg + "'";
 		}
-		
 		
 		ResultSet rs = DAL.pull(sql);
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
@@ -73,8 +76,8 @@ public class KundeDAL {
 		boolean inserted = false;
 		for (int id : kundeID) {
 			if (!(id == counter)) {
-				sql = "INSERT INTO kunde VALUES + '" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
-						+ "')";
+				sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
+						+ "');";
 				inserted = DAL.push(sql);
 				return counter;
 			}

@@ -13,7 +13,7 @@ public class KundeController extends MotherController {
 	}
 
 	public void run() {
-		String[] menuItems = { "Gå op", "Opret kunde", "Vis en kunde", "Vis alle kunder" };
+		String[] menuItems = { "Gå op", "Opret kunde", "Find en kunde", "Vis alle kunder" };
 
 		while (true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
@@ -41,7 +41,7 @@ public class KundeController extends MotherController {
 		}
 	}
 
-	public void opretKunde() {
+	public Kunde opretKunde() {
 		ui.besked("Oprettelse af ny kunde");
 		ui.besked("Indtast -1 på et givent tidspunkt for at afbryde");
 
@@ -49,19 +49,23 @@ public class KundeController extends MotherController {
 		String navn = ui.input("Indtast navn:");
 		if (navn.equals("-1")) {
 			ui.besked("Afbryder");
-			return;
+			return null;
 		}
 		// Tlf
 		String tlf = ui.input("Indtast telefonnumer:");
 		if (tlf.equals("-1")) {
 			ui.besked("Afbryder");
-			return;
+			return null;
 		}
 
 		Kunde kunde = new Kunde(navn, tlf);
-		if (KundeDAL.pushNew(kunde) != 0) {
-			ui.besked("Kunde oprettet");
+		int id = KundeDAL.pushNew(kunde);
+		if (id != 0) {
+			Kunde nyKunde = KundeDAL.pull(id);
+			ui.besked("Kunde oprettet \n " + nyKunde.prettyPrint());
+			return nyKunde;
 		}
+		return null;
 	}
 
 	public void alleKunder() {
@@ -69,11 +73,11 @@ public class KundeController extends MotherController {
 		kundeList = KundeDAL.pullAll();
 		ui.besked("Liste over alle kunder:");
 		for (Kunde kunde : kundeList) {
-			ui.besked("ID: " + kunde.getId() + " Navn: " + kunde.getNavn() + " Tlf: " + kunde.getTlf());
+			ui.besked(kunde.prettyPrint());
 		}
 	}
 	
-	public void getKunde() {
+	public Kunde getKunde() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		
 		String[] menuItems = {"Annuller","Navn","Telefonnummner","ID"};
@@ -83,7 +87,7 @@ public class KundeController extends MotherController {
 		switch (valg) {
 		case 0:
 			// Annuller
-			return;
+			return null;
 		case 1:
 			// Navn
 			kundeList = KundeDAL.pull(ui.input("Indtast navn"),valg);
@@ -101,8 +105,9 @@ public class KundeController extends MotherController {
 		}
 		
 		for (Kunde kunde : kundeList) {
-			ui.besked("ID: " + kunde.getId() + " Navn: " + kunde.getNavn() + " Tlf: " + kunde.getTlf());
+			ui.besked(kunde.prettyPrint());
 		}
-		
+	
+		return kundeList.get(0);
 	}
 }

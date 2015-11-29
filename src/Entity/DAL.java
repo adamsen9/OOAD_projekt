@@ -11,10 +11,11 @@ public class DAL {
 
 	//URL
 	static final String DB_URL = "jdbc:mysql://localhost/costakalundborg";
+	
 	//Bruger
 	static final String USER = "root";
 	//Pass
-	static final String PASS = "";
+	static final String PASS = "password";
 
 	//Pull
 	public static ResultSet pull(String sql) {
@@ -28,6 +29,7 @@ public class DAL {
 			return rs;
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
+			e.printStackTrace(); 
 			return null;
 		}
 	}
@@ -45,6 +47,7 @@ public class DAL {
 			return true;
 		} catch(SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
+			e.printStackTrace(); 
 			return false;
 		}
 	}

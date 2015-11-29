@@ -1,12 +1,22 @@
 package Controller;
 
+import java.util.ArrayList;
+
 import Boundary.IUI;
+import Entity.Dataklasser.Kunde;
+import Entity.Dataklasser.Reservation;
+import Function.ReservationsFunc;
 
 
 public class ReservationsController extends MotherController{
 
-	public ReservationsController(IUI ui) {
+	KundeController kc;
+	Kunde kunde;
+	Reservation reservation;
+	
+	public ReservationsController(IUI ui, KundeController kc) {
 		super(ui);
+		this.kc = kc;
 	}
 
 	@Override
@@ -24,11 +34,11 @@ public class ReservationsController extends MotherController{
 				return;
 			case 1:
 				//Lav reservation
-				createReservation();
+				opretReservation();
 				break;
 			case 2:
 				//Vis alle reservationer
-				showReservations();
+				visReservationer();
 				break;
 			default:
 				
@@ -39,7 +49,44 @@ public class ReservationsController extends MotherController{
 	}
 	
 	public void Checkin() {
-		//TODO stuff
+		// find/opret kunde
+		String menuTittel = "Check ind - vælg kunde";
+		String[] menuOptions = {
+				"Tilbage", 
+				"Ny kunde", 
+				"Eksisterende kunde"
+		};
+
+		Runnable[] menuFunktioner = {
+			() -> { kunde = null; },
+			() -> { kunde = kc.opretKunde(); },
+			() -> { kunde = kc.getKunde(); }
+		};
+
+		menuFunktioner[ui.visMenu(menuTittel, menuOptions)].run();
+		if (kunde == null)
+			return;
+		
+		// find/opret reservation
+		menuTittel = "Check ind - vælg reservation";
+		menuOptions = new String[]{
+				"Annullér", 
+				"Ny reservation", 
+				"Eksisterende reservation"
+		};
+
+		menuFunktioner = new Runnable[]{
+			() -> { reservation = null; },
+			() -> { reservation = opretReservation(); },
+			() -> { reservation = vælgReservationForKunde(kunde.getId()); }
+		};
+
+		menuFunktioner[ui.visMenu(menuTittel, menuOptions)].run();
+		if (reservation == null)
+			return;
+		
+		ReservationsFunc.checkInd(reservation.getId());
+		
 	}
 	
 	public void Checkout(){
@@ -48,12 +95,24 @@ public class ReservationsController extends MotherController{
 	}
 	
 
-	public void createReservation(){
+	public Reservation opretReservation(){
 		//TODO stuff
-		
+		return null;
 	}
 	
-	public void showReservations(){
-		// stuff
+	public void visReservationer(){
+		// TODO stuff
+	}
+	
+	public Reservation vælgReservationForKunde(int kundeId){
+
+		
+		return null;
+	}
+	
+	public ArrayList<Reservation> reservationerForKunde(int kundeId){
+		// TODO implement
+		ArrayList<Reservation> resList = new ArrayList<Reservation>();
+		return resList;
 	}
 }

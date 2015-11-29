@@ -4,7 +4,7 @@ import Boundary.IUI;
 
 public class MainMenuController extends MotherController {
 	KundeController kundeC = new KundeController(ui);
-	ReservationsController reservC = new ReservationsController(ui);
+	ReservationsController reservC = new ReservationsController(ui, kundeC);
 	ConsoleAdminController adminC = new ConsoleAdminController(ui);
 	
 	public MainMenuController(IUI ui){

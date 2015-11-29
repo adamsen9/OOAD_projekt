@@ -1,7 +1,7 @@
 package Entity.Dataklasser;
 
-public class Reservation implements Dataclass {
-	int res_id, state, slut_el, plads_id, kunde_id, antal_voksne, antal_børn;
+public class Reservation {
+	int res_id, state, start_el, slut_el, plads_id, kunde_id, antal_voksne, antal_børn, antal_hunde;
 	String start_dato, slut_dato;
 	
 	public Reservation() {
@@ -46,11 +46,11 @@ public class Reservation implements Dataclass {
 	}
 
 
-	public int getRes_id() {
+	public int getId() {
 		return res_id;
 	}
 
-	public void setRes_id(int res_id) {
+	public void setId(int res_id) {
 		this.res_id = res_id;
 	}
 

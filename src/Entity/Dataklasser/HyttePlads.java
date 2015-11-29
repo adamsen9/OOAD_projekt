@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class HyttePlads implements Dataclass,IListEntity {
+public class HyttePlads implements IListEntity {
 
 	public HyttePlads(int plads_id, int type, int lavseason, int hoejseason, int iStatus, int måler_Status,
 			String sStatus) {

@@ -1,6 +1,6 @@
 package Entity.Dataklasser;
 
-public class Kunde implements Dataclass {
+public class Kunde implements IListEntity {
 	int kunde_id;
 	String tlf;
 	String kunde_navn;
@@ -38,6 +38,11 @@ public class Kunde implements Dataclass {
 	}
 	public void setNavn(String navn) {
 		this.kunde_navn = navn;
+	}
+
+	@Override
+	public String prettyPrint() {
+		return "ID: " + getId() + " Navn: " + getNavn() + " Tlf: " + getTlf();
 	}
 	
 }
