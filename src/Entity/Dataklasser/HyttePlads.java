@@ -2,6 +2,10 @@ package Entity.Dataklasser;
 
 public class HyttePlads implements IListEntity {
 
+	public static final int lille_plads = 1;
+	public static final int stor_plads = 2;
+	public static final int hytte = 3;
+	
 	public HyttePlads(int plads_id, int type, int lavseason, int hoejseason, int iStatus, int måler_Status,
 			String sStatus) {
 		super();
@@ -18,9 +22,6 @@ public class HyttePlads implements IListEntity {
 	String sStatus;
 
 	public HyttePlads() {
-
-		// kald til databasen i forbindelse med oprettelse af objekt
-
 	}
 
 	public int getPlads_id() {

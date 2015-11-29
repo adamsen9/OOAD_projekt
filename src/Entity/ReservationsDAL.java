@@ -8,6 +8,8 @@ import Entity.Dataklasser.Reservation;
 public class ReservationsDAL {
 
 	public static ArrayList<Reservation> getHytteReservationsByType(int valg) {
+		
+		//TODO modify database to fit with new fields
 		String sql = "SELECT res_id,state,start_dato,slut_dato,slut_el,plads_id,kunde_id,antal_voksne,antal_børn FROM Reservation NATURAL JOIN HytterPladser WHERE HytterPladser.type = " + valg;
 		ArrayList<Reservation> TypeList = new ArrayList<Reservation>();
 		
@@ -15,7 +17,7 @@ public class ReservationsDAL {
 		try {
 
 			while (rs.next()) {
-				TypeList.add(new Reservation(
+/*				TypeList.add(new Reservation(
 						rs.getInt("res_id"),
 						rs.getInt("state"),
 						rs.getString("start_dato"),
@@ -25,7 +27,7 @@ public class ReservationsDAL {
 						rs.getInt("kunde_id"),
 						rs.getInt("antal_voksne"),
 						rs.getInt("antal_børn")
-						));
+						));*/
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
@@ -33,8 +35,13 @@ public class ReservationsDAL {
 		}
 		return TypeList;
 	}
-	
+
+	public static int opretReservation(Reservation ny) {
+		// TODO Auto-generated method stub
+		return -1;
 	}
+	
+}
 	
 	
 	
