@@ -6,7 +6,6 @@ public class Kunde implements IListEntity {
 	String kunde_navn;
 	
 	public Kunde() {
-		
 	}
 	
 	public Kunde(String kunde_navn, int kunde_id, String tlf) {

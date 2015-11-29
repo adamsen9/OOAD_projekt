@@ -73,13 +73,14 @@ public class KundeDAL {
 		}
 
 		int counter = 1;
-		boolean inserted = false;
 		for (int id : kundeID) {
 			if (!(id == counter)) {
 				sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
 						+ "');";
-				inserted = DAL.push(sql);
-				return counter;
+				if(DAL.push(sql))
+					return counter;
+				
+				return -1;
 			}
 			counter++;
 		}

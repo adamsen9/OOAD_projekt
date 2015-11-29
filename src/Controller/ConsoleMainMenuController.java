@@ -2,12 +2,12 @@ package Controller;
 
 import Boundary.IUI;
 
-public class MainMenuController extends MotherController {
-	KundeController kundeC = new KundeController(ui);
-	ReservationsController reservC = new ReservationsController(ui, kundeC);
+public class ConsoleMainMenuController extends GeneralController {
+	ConsoleKundeController kundeC = new ConsoleKundeController(ui);
 	ConsoleAdminController adminC = new ConsoleAdminController(ui);
+	ConsoleReservationsController reservC = new ConsoleReservationsController(ui, kundeC, adminC);
 	
-	public MainMenuController(IUI ui){
+	public ConsoleMainMenuController(IUI ui){
 		super(ui);
 	}
 	

@@ -10,14 +10,16 @@ import Entity.Dataklasser.Reservation;
 import Function.ReservationsFunc;
 
 
-public class ReservationsController extends MotherController{
+public class ConsoleReservationsController extends GeneralController{
 
 	KundeController kc;
+	AdminController ac;
 	private interface ReservationVælger{ ArrayList<Reservation> vælg();	}
 	
-	public ReservationsController(IUI ui, KundeController kc) {
+	public ConsoleReservationsController(IUI ui, KundeController kc, AdminController ac) {
 		super(ui);
 		this.kc = kc;
+		this.ac = ac;
 	}
 
 	@Override
@@ -87,7 +89,7 @@ public class ReservationsController extends MotherController{
 		if (kunde == null)
 			kunde = kc.vælgKunde();
 		
-		HyttePlads hyttePlads = vælgHyttePlads();
+		HyttePlads hyttePlads = ac.vælgHyttePlads();
 		
 		int antal = 1;
 		if(hyttePlads.getId() == 0){
@@ -116,10 +118,10 @@ public class ReservationsController extends MotherController{
 		String[] svar = ui.multiInput("Indtast oplysninger på ny reservation til /n" + kunde.prettyPrint(), sNavne);
 
 		Reservation ny = ReservationsFunc.nyFraArray(svar);
-		ny.setPlads_typpe(hyttePlads.getType());
+		ny.setPlads_type(hyttePlads.getType());
 		ny.setPlads_id(hyttePlads.getId());
 		
-		if(!ReservationsFunc.checkLedige(ny.getPlads_typpe(), ny.getStart_dato(), ny.getSlut_dato(), antal)){
+		if(!ReservationsFunc.checkLedige(ny.getPlads_type(), ny.getStart_dato(), ny.getSlut_dato(), antal)){
 			//TODO vælg nyt eller stop ?
 			return null;
 		}
@@ -154,10 +156,5 @@ public class ReservationsController extends MotherController{
 		// TODO implement
 		ArrayList<Reservation> resList = new ArrayList<Reservation>();
 		return resList;
-	}
-	
-	private HyttePlads vælgHyttePlads(){
-		//TODO implement
-		return null;
 	}
 }

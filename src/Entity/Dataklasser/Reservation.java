@@ -6,7 +6,7 @@ public class Reservation {
 		status, 
 		start_el, 
 		slut_el,
-		plads_typpe,
+		plads_type,
 		plads_id, 
 		kunde_id, 
 		antal_voksne, 
@@ -18,14 +18,14 @@ public class Reservation {
 	public Reservation() {
 	}
 	
-	public Reservation(int res_id, int status, int start_el, int slut_el, int plads_typpe, int plads_id, int kunde_id,
+	public Reservation(int res_id, int status, int start_el, int slut_el, int plads_type, int plads_id, int kunde_id,
 			int antal_voksne, int antal_børn, int antal_hunde, String start_dato, String slut_dato) {
 		super();
 		this.res_id = res_id;
 		this.status = status;
 		this.start_el = start_el;
 		this.slut_el = slut_el;
-		this.plads_typpe = plads_typpe;
+		this.plads_type = plads_type;
 		this.plads_id = plads_id;
 		this.kunde_id = kunde_id;
 		this.antal_voksne = antal_voksne;
@@ -126,13 +126,13 @@ public class Reservation {
 	}
 
 
-	public int getPlads_typpe() {
-		return plads_typpe;
+	public int getPlads_type() {
+		return plads_type;
 	}
 
 
-	public void setPlads_typpe(int plads_typpe) {
-		this.plads_typpe = plads_typpe;
+	public void setPlads_type(int plads_type) {
+		this.plads_type = plads_type;
 	}
 
 

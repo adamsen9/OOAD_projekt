@@ -6,10 +6,11 @@ import Boundary.IUI;
 import Entity.HyttePladsDAL;
 import Entity.PrisDAL;
 import Entity.SæsonDAL;
+import Entity.Dataklasser.HyttePlads;
 import Entity.Dataklasser.IListEntity;
 import Function.AdministrationsFunc;
 
-public class ConsoleAdminController extends MotherController {
+public class ConsoleAdminController extends GeneralController implements AdminController{
 	
 	private static final int hyttePlads = 0;
 	private static final int pris = 1;
@@ -42,6 +43,7 @@ public class ConsoleAdminController extends MotherController {
 
 	// Administrationsmenu
 	// Vælg type
+	@Override
 	public void run(){
 		String menuTittel = "Administrationsmenu";
 		String[] menuOptions = {
@@ -64,12 +66,23 @@ public class ConsoleAdminController extends MotherController {
 		}
 	}
 	
+	// Vælg plads eller hytte
+	@Override
+	public HyttePlads vælgHyttePlads(){
+		HyttePlads ny = new HyttePlads();
+		ny.setType(ui.visMenu("Vælg type", HyttePlads.TYPER));
+		if (ny.getType() == HyttePlads.HYTTE){
+			
+		}
+		return ny;
+	}
+	
 	//Vælg funktion
-	private void funktionsMenu(int typpe){
+	private void funktionsMenu(int type){
 		String menuTittel = "";
 		String[] menuOptions = {};
 
-		if (typpe == hyttePlads){
+		if (type == hyttePlads){
 			menuTittel = "Administrér pladser og hytter.";
 			menuOptions = new String[]{
 				"Tilbage",
@@ -78,7 +91,7 @@ public class ConsoleAdminController extends MotherController {
 				"Ret eksisterende hytte eller plads",
 				"Slet en hytte eller plads"
 			};
-		} else if (typpe == pris){
+		} else if (type == pris){
 			menuTittel = "Administrér priser.";
 			menuOptions = new String[]{
 				"Tilbage",
@@ -87,7 +100,7 @@ public class ConsoleAdminController extends MotherController {
 				"Ret eksisterende pris",
 				"Slet en pris"
 			};
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			menuTittel = "Administrér sæsoner.";
 			menuOptions = new String[]{
 				"Tilbage",
@@ -100,10 +113,10 @@ public class ConsoleAdminController extends MotherController {
 
 		Runnable[] menuFunktioner = {
 			() -> { færdig = true; },
-			() -> { visAlle(typpe); },
-			() -> { ny(typpe); }, 
-			() -> { ret(typpe); },
-			() -> { slet(typpe);} 
+			() -> { visAlle(type); },
+			() -> { ny(type); }, 
+			() -> { ret(type); },
+			() -> { slet(type);} 
 		};
 
 		while (!færdig){
@@ -113,25 +126,25 @@ public class ConsoleAdminController extends MotherController {
 	}
 	
 	//Vis 
-	private void visAlle(int typpe){
+	private void visAlle(int type){
 		ArrayList<IListEntity> resultat = null;
-		if (typpe == hyttePlads){
+		if (type == hyttePlads){
 			ui.besked("Hytter og pladser \n");
 			resultat = new ArrayList<IListEntity>(HyttePladsDAL.getHyttePladser());
-		} else if (typpe == pris){
+		} else if (type == pris){
 			ui.besked("Priser \n");
 			resultat = new ArrayList<IListEntity>(PrisDAL.getPriser());
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			ui.besked("sæsoner \n");
 			resultat = new ArrayList<IListEntity>(SæsonDAL.getSæsoner());
 		}
 		
 		if (resultat.isEmpty()){
-			if (typpe == hyttePlads){
+			if (type == hyttePlads){
 				ui.besked("Der er ingen hytter eller pladser i systemet\n");
-			} else if (typpe == pris){
+			} else if (type == pris){
 				ui.besked("Der er ingen priser i systemet\n");
-			} else if (typpe == sæson){
+			} else if (type == sæson){
 				ui.besked("Der er ingen sæsoner i systemet\n");
 			}
 			return;
@@ -143,47 +156,47 @@ public class ConsoleAdminController extends MotherController {
 	}
 	
 	// Opret ny
-	private void ny(int typpe){
-		String sTyppe = "";
+	private void ny(int type){
+		String sType = "";
 		String[] sNavne = {};
-		if (typpe == hyttePlads){
-			sTyppe = "hytte eller plads";
+		if (type == hyttePlads){
+			sType = "hytte eller plads";
 			sNavne = hyttePladsAttributter;
-		} else if (typpe == pris){
-			sTyppe = "pris";
+		} else if (type == pris){
+			sType = "pris";
 			sNavne = prisAttributter;
-		} else if (typpe == sæson){
-			sTyppe = "sæson";
+		} else if (type == sæson){
+			sType = "sæson";
 			sNavne = sæsonAttributter;
 		}
 		
-		String[] svar = ui.multiInput("Indtast oplysninger på ny " + sTyppe, sNavne);
+		String[] svar = ui.multiInput("Indtast oplysninger på ny " + sType, sNavne);
 		
-		if (typpe == hyttePlads){
+		if (type == hyttePlads){
 			AdministrationsFunc.opretHyttePlads(svar);
-		} else if (typpe == pris){
+		} else if (type == pris){
 			AdministrationsFunc.opretPris(svar);
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			AdministrationsFunc.opretSæson(svar);
 		}
 	}
 	
 	// Ret specifik
-	private void ret(int typpe){
-		String sTyppe = "";
+	private void ret(int type){
+		String sType = "";
 		String[] sNavne = {};
-		if (typpe == hyttePlads){
-			sTyppe = "hytte eller plads";
+		if (type == hyttePlads){
+			sType = "hytte eller plads";
 			sNavne = hyttePladsAttributter;
-		} else if (typpe == pris){
-			sTyppe = "pris";
+		} else if (type == pris){
+			sType = "pris";
 			sNavne = prisAttributter;
-		} else if (typpe == sæson){
-			sTyppe = "sæson";
+		} else if (type == sæson){
+			sType = "sæson";
 			sNavne = sæsonAttributter;
 		}
 
-		String sId = ui.input("Indtast id på " + sTyppe + ", der skal rettes.");
+		String sId = ui.input("Indtast id på " + sType + ", der skal rettes.");
 		
 		int id;
 		try{
@@ -194,41 +207,41 @@ public class ConsoleAdminController extends MotherController {
 		}
 		
 		IListEntity gammel = null;
-		if (typpe == hyttePlads){
+		if (type == hyttePlads){
 			gammel = HyttePladsDAL.getHyttePlads(id);
-		} else if (typpe == pris){
+		} else if (type == pris){
 			gammel = PrisDAL.getPris(id);
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			gammel = SæsonDAL.getSæson(id);
 		}
 
 		if (gammel == null){
-			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
+			ui.besked("Der findes ingen " + sType + " i systemet med det indtastede ID\n");
 			return;
 		}
 		
-		String[] svar = ui.multiInput("Indtast nye oplysninger for " + sTyppe, sNavne);
-		if (typpe == hyttePlads){
+		String[] svar = ui.multiInput("Indtast nye oplysninger for " + sType, sNavne);
+		if (type == hyttePlads){
 			AdministrationsFunc.retHyttePlads(gammel.getId(), svar);
-		} else if (typpe == pris){
+		} else if (type == pris){
 			AdministrationsFunc.retPris(gammel.getId(), svar);
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			AdministrationsFunc.retSæson(gammel.getId(), svar);
 		}
 	}
 	
 	// Slet
-	private void slet(int typpe) {
-		String sTyppe = "";
-		if (typpe == hyttePlads){
-			sTyppe = "hytte eller plads";
-		} else if (typpe == pris){
-			sTyppe = "pris";
-		} else if (typpe == sæson){
-			sTyppe = "sæson";
+	private void slet(int type) {
+		String sType = "";
+		if (type == hyttePlads){
+			sType = "hytte eller plads";
+		} else if (type == pris){
+			sType = "pris";
+		} else if (type == sæson){
+			sType = "sæson";
 		}
 
-		String sId = ui.input("Indtast id på "+ sTyppe);
+		String sId = ui.input("Indtast id på "+ sType);
 		
 		int id;
 		try{
@@ -239,26 +252,26 @@ public class ConsoleAdminController extends MotherController {
 		}
 		
 		IListEntity gammel = null;
-		if (typpe == hyttePlads){
+		if (type == hyttePlads){
 			gammel = HyttePladsDAL.getHyttePlads(id);
-		} else if (typpe == pris){
+		} else if (type == pris){
 			gammel = PrisDAL.getPris(id);
-		} else if (typpe == sæson){
+		} else if (type == sæson){
 			gammel = SæsonDAL.getSæson(id);
 		}
 
 		if (gammel == null){
-			ui.besked("Der findes ingen " + sTyppe + " i systemet med det indtastede ID\n");
+			ui.besked("Der findes ingen " + sType + " i systemet med det indtastede ID\n");
 			return;
 		}
 		
 		if(ui.bekræft("Er du sikker på at du vill slette dette ?\n" + gammel.prettyPrint())){
-			if (typpe == hyttePlads){
+			if (type == hyttePlads){
 				HyttePladsDAL.deleteHyttePlads(gammel.getId());
-			} else if (typpe == pris){
+			} else if (type == pris){
 				gammel = PrisDAL.getPris(id);
 				PrisDAL.deletePris(gammel.getId());
-			} else if (typpe == sæson){
+			} else if (type == sæson){
 				gammel = SæsonDAL.getSæson(id);
 				SæsonDAL.deleteSæson(gammel.getId());
 			}

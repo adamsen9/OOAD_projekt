@@ -2,28 +2,37 @@ package Entity.Dataklasser;
 
 public class HyttePlads implements IListEntity {
 
-	public static final int lille_plads = 1;
-	public static final int stor_plads = 2;
-	public static final int hytte = 3;
+	public static final int LILLE_PLADS = 1;
+	public static final int STOR_PLADS = 2;
+	public static final int HYTTE = 3;
 	
-	public HyttePlads(int plads_id, int type, int lavseason, int hoejseason, int iStatus, int måler_Status,
-			String sStatus) {
-		super();
-		this.plads_id = plads_id;
-		this.type = type;
-		this.lavseason = lavseason;
-		this.hoejseason = hoejseason;
-		this.iStatus = iStatus;
-		this.måler_Status = måler_Status;
-		this.sStatus = sStatus;
-	}
-
-	int plads_id, type, lavseason, hoejseason, iStatus, måler_Status;
-	String sStatus;
+	public static final int SATUS_KLAR = 0;
+	
+	public static final String[] TYPER = {"Lille plads", "Stor plads", "Hytte"};
+	
+	private int plads_id, type, iStatus, måler_id, måler_Status;
+	private String sStatus;
 
 	public HyttePlads() {
 	}
 
+	public HyttePlads(int plads_id, int type, int iStatus, int måler_id, int måler_Status, String sStatus) {
+		this.plads_id = plads_id;
+		this.type = type;
+		this.iStatus = iStatus;
+		this.måler_id = måler_id;
+		this.måler_Status = måler_Status;
+		this.sStatus = sStatus;
+	}
+
+	public int getMåler_id() {
+		return måler_id;
+	}
+
+	public void setMåler_id(int måler_id) {
+		this.måler_id = måler_id;
+	}
+	
 	public int getPlads_id() {
 		return plads_id;
 	}
@@ -38,22 +47,6 @@ public class HyttePlads implements IListEntity {
 
 	public void setType(int type) {
 		this.type = type;
-	}
-
-	public int getLavseason() {
-		return lavseason;
-	}
-
-	public void setLavseason(int lavseason) {
-		this.lavseason = lavseason;
-	}
-
-	public int getHoejseason() {
-		return hoejseason;
-	}
-
-	public void setHoejseason(int hoejseason) {
-		this.hoejseason = hoejseason;
 	}
 
 	public int getiStatus() {

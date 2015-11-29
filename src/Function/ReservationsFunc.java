@@ -16,7 +16,7 @@ public class ReservationsFunc {
 		return null;
 	}
 
-	public static boolean checkLedige(int plads_typpe, String start_dato, String slut_dato, int antal) {
+	public static boolean checkLedige(int plads_type, String start_dato, String slut_dato, int antal) {
 		// TODO Auto-generated method stub
 		return false;
 	}

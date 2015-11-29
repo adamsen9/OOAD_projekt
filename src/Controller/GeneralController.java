@@ -2,10 +2,10 @@ package Controller;
 
 import Boundary.IUI;
 
-public abstract class MotherController {
+public abstract class GeneralController {
 	IUI ui;
 	
-	public MotherController(IUI ui){
+	public GeneralController(IUI ui){
 		this.ui = ui;
 	}
 	

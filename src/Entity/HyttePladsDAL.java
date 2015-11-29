@@ -16,14 +16,15 @@ public class HyttePladsDAL {
 		try {
 
 			while (rs.next()) {
-				hyttePladsList.add(new HyttePlads(
+				//TODO ret så det passer med DB
+/*				hyttePladsList.add(new HyttePlads(
 						rs.getInt("plads_id"),
 						rs.getInt("type"),
 						rs.getInt("lavseason"),
 						rs.getInt("hoejseason"),
 						rs.getInt("iStatus"),
 						rs.getInt("maaler_status"),
-						rs.getString("sStatus")));
+						rs.getString("sStatus")));*/
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
@@ -37,16 +38,13 @@ public class HyttePladsDAL {
 		ResultSet rs = DAL.pull(sql);
 		HyttePlads hyttePlads;
 		try {
-			;
 			hyttePlads = new HyttePlads(
 					rs.getInt("plads_id"),
 					rs.getInt("type"),
-					rs.getInt("lavseason"),
-					rs.getInt("hoejseason"),
 					rs.getInt("iStatus"),
-					rs.getInt("maaler_status"),
+					rs.getInt("maaler_id"),
+					rs.getInt("maaler_status"), 
 					rs.getString("sStatus"));
-
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 			return null;

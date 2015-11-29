@@ -18,7 +18,7 @@ public class AdministrationsFunc {
 	}
 	
 	private static HyttePlads hyttePladsFraArray(String[] attributes){
-		//TODO
+		//TODO implement
 		return null;
 	}
 
