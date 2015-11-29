@@ -96,7 +96,7 @@ public class KundeDAL {
 	}
 
 	public static boolean update(Kunde kunde) {
-		// TODO implement this
+		// TODO
 		return false;
 	}
 }

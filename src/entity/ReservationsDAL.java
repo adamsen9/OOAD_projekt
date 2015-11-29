@@ -79,12 +79,12 @@ public class ReservationsDAL {
 	}
 	
 	public static int opretReservation(Reservation ny) {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		return -1;
 	}
 
 	public static ArrayList<Reservation> getHytteReservationer(String hytteType, LocalDate fra, LocalDate til) {
-		String sql = "SELECT * FROM reservation NATURAL JOIN hyttepladser NATURAL JOIN hytter";
+		String sql = "SELECT * FROM reservation NATURAL JOIN hytterpladser NATURAL JOIN hytter";
 		sql += " WHERE hytte_type = '" + hytteType + "'";
 		sql += " AND slut_dato >= '" + fra + "'";
 		sql += " AND start_dato <= '" + til + "'";

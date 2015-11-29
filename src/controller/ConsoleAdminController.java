@@ -71,7 +71,7 @@ public class ConsoleAdminController extends GeneralController implements AdminCo
 	// Vælg plads eller hytte
 	@Override
 	public HyttePlads vælgHyttePlads(){
-		HyttePlads ny;
+		HyttePlads retur;
 		int type = ui.visMenu("Vælg type", HyttePlads.TYPER);
 		if (type == HyttePlads.HYTTE){
 			ArrayList<Hytte> hytter = AdministrationsFunc.getAlleHytter();
@@ -88,23 +88,23 @@ public class ConsoleAdminController extends GeneralController implements AdminCo
 				i++;
 			}
 			
-			Hytte nyHytte = new Hytte();
-			nyHytte.setHytteType( menuOptions[ui.visMenu(tittel, menuOptions)]);
+			Hytte returHytte = new Hytte();
+			returHytte.setHytteType( menuOptions[ui.visMenu(tittel, menuOptions)]);
 			if(ui.bekræft("Vil du vælge en specifik hytte ?")){
 				ArrayList<Hytte> hytteMulighedder = new ArrayList<Hytte>();
 				ArrayList<String> valgmulighedder = new ArrayList<String>();
 				for (Hytte h : hytter){
-					if (h.getHytteType().equals(nyHytte.getHytteType())){
+					if (h.getHytteType().equals(returHytte.getHytteType())){
 						valgmulighedder.add(h.prettyPrint());
 						hytteMulighedder.add(h);
 					}
 				}
-				int input = ui.visMenu("Hytter af typen " + nyHytte.getHytteType(), valgmulighedder.toArray(new String[0]));
-				nyHytte = AdministrationsFunc.getHytte(hytteMulighedder.get(input).getId());
+				int input = ui.visMenu("Hytter af typen " + returHytte.getHytteType(), valgmulighedder.toArray(new String[0]));
+				returHytte = AdministrationsFunc.getHytte(hytteMulighedder.get(input).getId());
 			}
-			ny = nyHytte;
+			retur = returHytte;
 		} else {
-			ny = new HyttePlads();
+			retur = new HyttePlads();
 			if(ui.bekræft("Vil du vælge en specifik plads ?")){
 				ArrayList<HyttePlads> pladser = AdministrationsFunc.getHyttePladsAfType(type);
 				String[] menuText = new String[pladser.size()];
@@ -115,12 +115,12 @@ public class ConsoleAdminController extends GeneralController implements AdminCo
 				}
 				
 				int input = ui.visMenu("Pladser af typen " + HyttePlads.TYPER[type], menuText);
-				ny = AdministrationsFunc.getHyttePlads(pladser.get(input).getId());
+				retur = AdministrationsFunc.getHyttePlads(pladser.get(input).getId());
 			}
 		}
 
-		ny.setType(type);
-		return ny;
+		retur.setType(type);
+		return retur;
 	}
 	
 	//Vælg funktion

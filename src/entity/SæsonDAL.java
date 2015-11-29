@@ -2,23 +2,22 @@ package entity;
 
 import java.util.ArrayList;
 
-import entity.dataklasser.IListEntity;
 import entity.dataklasser.Sæson;
 
 public class SæsonDAL {
 	public static ArrayList<Sæson> getSæsoner() {
-		// TODO Auto-generated method stub
+		// TODO
 		ArrayList<Sæson> sæsonList = new ArrayList<Sæson>();
 		return sæsonList;
 	}
 
-	public static IListEntity getSæson(int id) {
-		// TODO Auto-generated method stub
+	public static Sæson getSæson(int id) {
+		// TODO
 		return null;
 	}
 
 	public static void deleteSæson(int id) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 

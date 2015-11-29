@@ -77,7 +77,7 @@ public class ConsoleReservationsController extends GeneralController{
 	}
 	
 	public void tjekUd(){
-		//TODO stuff
+		//TODO
 	}
 	
 
@@ -111,14 +111,14 @@ public class ConsoleReservationsController extends GeneralController{
 				"Antal hunde (Intet valg = "+ Reservation.STANDARD_HUND +")",
 		};
 		
-		Reservation ny = null;
+		Reservation nyReservation = null;
 		do {
 			String[] svar = 
 					ui.multiInput(
 							"Indtast oplysninger på ny reservation til \n" 
 							+ kunde.prettyPrint(), sNavne);
 			try {
-				ny = ReservationsFunc.nyFraArray(svar);
+				nyReservation = ReservationsFunc.nyFraArray(svar);
 			} catch (FunctionException e) {
 				ArrayList<String> beskedder = e.getFejlbeskedder(); 
 				for (String fejl: beskedder){
@@ -127,12 +127,12 @@ public class ConsoleReservationsController extends GeneralController{
 				if (!ui.bekræft("ønsker du at prøve igen ?"))
 					return null;
 			}
-		} while (ny == null);
+		} while (nyReservation == null);
 
-		ny.setPlads_type(hyttePlads.getType());
-		ny.setPlads_id(hyttePlads.getId());
+		nyReservation.setPlads_type(hyttePlads.getType());
+		nyReservation.setPlads_id(hyttePlads.getId());
 		
-		int ledige = ReservationsFunc.tjekLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato());
+		int ledige = ReservationsFunc.tjekLedige(hyttePlads, nyReservation.getStart_dato(), nyReservation.getSlut_dato());
 		while(ledige < antal){
 			int input = ui.visMenu("Der er kun "+ ledige +" ledige hytter/pladser "
 					+ "af den valgte type i det valgte tidsrum\nVælg handling", 
@@ -147,10 +147,10 @@ public class ConsoleReservationsController extends GeneralController{
 				return null;
 			case 1:
 				
-				ny.setStart_dato(LocalDate.parse(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)")));
+				nyReservation.setStart_dato(LocalDate.parse(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)")));
 				break;
 			case 2:
-				ny.setSlut_dato(LocalDate.parse(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger")));
+				nyReservation.setSlut_dato(LocalDate.parse(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger")));
 				break;
 			case 3:
 				hyttePlads = ac.vælgHyttePlads();
@@ -168,17 +168,17 @@ public class ConsoleReservationsController extends GeneralController{
 				}
 				break;
 			}
-			ledige = ReservationsFunc.tjekLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato());
+			ledige = ReservationsFunc.tjekLedige(hyttePlads, nyReservation.getStart_dato(), nyReservation.getSlut_dato());
 		}
 		
 		ArrayList<Reservation> nyeReservationer = new ArrayList<Reservation>(); 
 		for (int i = 0; i < antal; i++){
-			int id = ReservationsDAL.opretReservation(ny);
+			int id = ReservationsDAL.opretReservation(nyReservation);
 			if (id != -1){
-				nyeReservationer.add(ny);
-				ny.setAntal_voksne(0);
-				ny.setAntal_børn(0);
-				ny.setAntal_hunde(0);
+				nyeReservationer.add(nyReservation);
+				nyReservation.setAntal_voksne(0);
+				nyReservation.setAntal_børn(0);
+				nyReservation.setAntal_hunde(0);
 			} else {
 				// TODO håndtér fejl
 			}
@@ -188,7 +188,7 @@ public class ConsoleReservationsController extends GeneralController{
 	}
 	
 	public void visReservationer(){
-		// TODO stuff
+		// TODO
 	}
 	
 	public ArrayList<Reservation> vælgReservationForKunde(int kundeId){

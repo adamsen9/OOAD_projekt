@@ -11,7 +11,7 @@ import entity.dataklasser.Reservation;
 public class ReservationsFunc {
 	
 	public static void tjekInd(ArrayList<Reservation> reservation) {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		
 	}
 
@@ -129,7 +129,7 @@ public class ReservationsFunc {
 	}
 
 	public static ArrayList<Reservation> getReservationerForKunde(int kundeId) {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		return null;
 	}
 

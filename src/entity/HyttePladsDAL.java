@@ -9,7 +9,7 @@ import entity.dataklasser.HyttePlads;
 public class HyttePladsDAL {
 
 	public static ArrayList<HyttePlads> getHyttePladser() {
-		String sql = "SELECT * FROM HyttePlads";
+		String sql = "SELECT * FROM HytterPladser";
 		ArrayList<HyttePlads> hyttePladsList = new ArrayList<HyttePlads>();
 		
 		ResultSet rs = DAL.pull(sql);
@@ -38,6 +38,8 @@ public class HyttePladsDAL {
 		ResultSet rs = DAL.pull(sql);
 		HyttePlads hyttePlads;
 		try {
+			//TODO ret så det passer med DB
+			rs.next();
 			hyttePlads = new HyttePlads(
 					rs.getInt("plads_id"),
 					rs.getInt("type"),
@@ -54,17 +56,17 @@ public class HyttePladsDAL {
 	}
 
 	public static void createHyttePlads(HyttePlads nyHyttePlads) {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 
 	public static void updateHyttePlads(HyttePlads nyHP) {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 
 	public static void deleteHyttePlads(int id) {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 

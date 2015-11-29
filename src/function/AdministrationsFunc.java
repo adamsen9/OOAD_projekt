@@ -21,52 +21,52 @@ public class AdministrationsFunc {
 	}
 	
 	private static HyttePlads hyttePladsFraArray(String[] attributes){
-		//TODO implement
+		// TODO
 		return null;
 	}
 
 	public static void opretPris(String[] svar) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 
 	public static void opretSæson(String[] svar) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 
 	public static void retPris(int id, String[] svar) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 
 	public static void retSæson(int id, String[] svar) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 
 	public static ArrayList<Hytte> getAlleHytter() {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		return null;
 	}
 	
 	public static ArrayList<HyttePlads> getHyttePladsAfType(int type){
-		//TODO implement
+		//TODO Implement
 		return null;
 	}
 
-	public static Hytte getHytte(int input) {
-		// TODO Auto-generated method stub
+	public static Hytte getHytte(int id) {
+		// TODO Implement
 		return null;
 	}
 
 	public static HyttePlads getHyttePlads(int id) {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		return null;
 	}
 
 	public static ArrayList<Hytte> getHytterAfType(String hytteType) {
-		// TODO Auto-generated method stub
+		// TODO Implement
 		return null;
 	}
 
