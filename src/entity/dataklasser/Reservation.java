@@ -1,7 +1,11 @@
 package entity.dataklasser;
 
 public class Reservation {
-
+	
+	public static final int STANDARD_VOKSNE = 1;
+	public static final int STANDARD_BØRN = 0;
+	public static final int STANDARD_HUND = 0;
+	
 	int res_id, 
 		status, 
 		start_el, 

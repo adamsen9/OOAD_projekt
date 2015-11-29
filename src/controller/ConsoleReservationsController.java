@@ -24,9 +24,7 @@ public class ConsoleReservationsController extends GeneralController{
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		String[] menuItems = {"Gå op","Lav reservation","Vis alle reservationer"};
-		
 		
 		while(true) {
 			int valg = ui.visMenu("Costa Kalundborg", menuItems);
@@ -42,9 +40,6 @@ public class ConsoleReservationsController extends GeneralController{
 			case 2:
 				//Vis alle reservationer
 				visReservationer();
-				break;
-			default:
-				
 				break;
 			}
 		}
@@ -77,7 +72,6 @@ public class ConsoleReservationsController extends GeneralController{
 			return;
 		
 		ReservationsFunc.checkInd(reservationer);
-		
 	}
 	
 	public void Checkout(){
@@ -110,9 +104,9 @@ public class ConsoleReservationsController extends GeneralController{
 		String[] sNavne = {
 				"Dato for ankomst (yyyy-mm-dd)", 
 				"Dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger",
-				"Antal voksne",
-				"Antal børn",
-				"Antal hunde",
+				"Antal voksne (Intet valg = "+ Reservation.STANDARD_VOKSNE +")",
+				"Antal børn (Intet valg = "+ Reservation.STANDARD_BØRN +")",
+				"Antal hunde (Intet valg = "+ Reservation.STANDARD_HUND +")",
 		};
 		
 		String[] svar = ui.multiInput("Indtast oplysninger på ny reservation til /n" + kunde.prettyPrint(), sNavne);
@@ -121,9 +115,40 @@ public class ConsoleReservationsController extends GeneralController{
 		ny.setPlads_type(hyttePlads.getType());
 		ny.setPlads_id(hyttePlads.getId());
 		
-		if(!ReservationsFunc.checkLedige(ny.getPlads_type(), ny.getStart_dato(), ny.getSlut_dato(), antal)){
-			//TODO vælg nyt eller stop ?
-			return null;
+		while(!ReservationsFunc.checkLedige(hyttePlads, ny.getStart_dato(), ny.getSlut_dato(), antal)){
+			int input = ui.visMenu("Der er ikke tilstækkelige ledige hytter/pladser af den valgte type i valgte tidsrum\n"
+					+ "Vælg handling", 
+					new String[]{
+							"Afbryd reservation",
+							"Vælg en anden ankomstsdato",
+							"Vælg en anden afrejsedato",
+							"Vælg en anden plads eller hytte",
+							"Vælg et andet antal pladser"});
+			switch (input) {
+			case 0:
+				return null;
+			case 1:
+				ny.setStart_dato(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)"));
+				break;
+			case 2:
+				ny.setSlut_dato(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger"));
+				break;
+			case 3:
+				hyttePlads = ac.vælgHyttePlads();
+				break;
+			case 4:
+				String sAntal = null;
+				while (sAntal == null){
+					sAntal = ui.input("Vælg nyt antal pladser");
+					try {
+						antal = Integer.parseInt(sAntal);
+					} catch (NumberFormatException e) {
+						ui.besked("Den indtastede værdi er ikke et tal");
+						sAntal = null;
+					}
+				}
+				break;
+			}
 		}
 		
 		ArrayList<Reservation> nyeReservationer = new ArrayList<Reservation>(); 

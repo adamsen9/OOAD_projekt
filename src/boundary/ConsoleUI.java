@@ -62,8 +62,8 @@ public class ConsoleUI implements IUI{
 
 	@Override
 	public boolean bekræft(String besked) {
-		// TODO Auto-generated method stub
-		return false;
+		String text = input(besked + "\n(Skriv y for at bekræfte)");
+		return text.toLowerCase().equals("y");
 	}
 
 	@Override

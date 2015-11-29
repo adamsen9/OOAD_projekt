@@ -1,11 +1,13 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import boundary.IUI;
 import entity.HyttePladsDAL;
 import entity.PrisDAL;
 import entity.SæsonDAL;
+import entity.dataklasser.Hytte;
 import entity.dataklasser.HyttePlads;
 import entity.dataklasser.IListEntity;
 import function.AdministrationsFunc;
@@ -69,11 +71,55 @@ public class ConsoleAdminController extends GeneralController implements AdminCo
 	// Vælg plads eller hytte
 	@Override
 	public HyttePlads vælgHyttePlads(){
-		HyttePlads ny = new HyttePlads();
-		ny.setType(ui.visMenu("Vælg type", HyttePlads.TYPER));
-		if (ny.getType() == HyttePlads.HYTTE){
+		HyttePlads ny;
+		int type = ui.visMenu("Vælg type", HyttePlads.TYPER);
+		if (type == HyttePlads.HYTTE){
+			ArrayList<Hytte> hytter = AdministrationsFunc.getAlleHytter();
+			HashSet<String> kategorier = new HashSet<String>();
+			for (Hytte h : hytter){
+				kategorier.add(h.getHytteType());
+			}
+			String tittel = "Vælg hytte type";
 			
+			String[] menuOptions = new String[kategorier.size()+1];
+			int i = 0;
+			for (String kategori: kategorier){
+				menuOptions[i] = kategori;
+				i++;
+			}
+			
+			Hytte nyHytte = new Hytte();
+			nyHytte.setHytteType( menuOptions[ui.visMenu(tittel, menuOptions)]);
+			if(ui.bekræft("Vil du vælge en specifik hytte ?")){
+				ArrayList<Hytte> hytteMulighedder = new ArrayList<Hytte>();
+				ArrayList<String> valgmulighedder = new ArrayList<String>();
+				for (Hytte h : hytter){
+					if (h.getHytteType().equals(nyHytte.getHytteType())){
+						valgmulighedder.add(h.prettyPrint());
+						hytteMulighedder.add(h);
+					}
+				}
+				int input = ui.visMenu("Hytter af typen " + nyHytte.getHytteType(), valgmulighedder.toArray(new String[0]));
+				nyHytte = AdministrationsFunc.getHytte(hytteMulighedder.get(input).getId());
+			}
+			ny = nyHytte;
+		} else {
+			ny = new HyttePlads();
+			if(ui.bekræft("Vil du vælge en specifik plads ?")){
+				ArrayList<HyttePlads> pladser = AdministrationsFunc.getHyttePladsAfType(type);
+				String[] menuText = new String[pladser.size()];
+				int i = 0;
+				for (HyttePlads plads : pladser){
+					menuText[i] = plads.prettyPrint();
+					i++;
+				}
+				
+				int input = ui.visMenu("Pladser af typen " + HyttePlads.TYPER[type], menuText);
+				ny = AdministrationsFunc.getHyttePlads(pladser.get(input).getId());
+			}
 		}
+
+		ny.setType(type);
 		return ny;
 	}
 	

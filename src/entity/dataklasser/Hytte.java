@@ -5,27 +5,33 @@ public class Hytte extends HyttePlads {
 	int antal_personer;
 	int størrelse;
 	int hytte_nummer;
-	String beskrivelse;
+	String hytteType;
 	
 	public Hytte() {
 	}
 
-	public Hytte(HyttePlads hp, int antal_personer, int størrelse, int hytte_nummer, String beskrivelse) {
-		super(hp.getPlads_id(), hp.getType(), hp.getiStatus(), hp.getMåler_id(), hp.getMåler_Status(), hp.getsStatus());
+	public Hytte(HyttePlads hp, int antal_personer, int størrelse, int hytte_nummer, String hytteType) {
+		super(hp.getId(), hp.getType(), hp.getiStatus(), hp.getMåler_id(), hp.getMåler_Status(), hp.getsStatus());
 		this.antal_personer = antal_personer;
 		this.størrelse = størrelse;
 		this.hytte_nummer = hytte_nummer;
-		this.beskrivelse = beskrivelse;
+		this.hytteType = hytteType;
 	}
 
 
 	public Hytte(int plads_id, int type, int iStatus, int måler_id, int måler_Status, String sStatus,
-			int antal_personer, int størrelse, int hytte_nummer, String beskrivelse) {
+			int antal_personer, int størrelse, int hytte_nummer, String hytteType) {
 		super(plads_id, type, iStatus, måler_id, måler_Status, sStatus);
 		this.antal_personer = antal_personer;
 		this.størrelse = størrelse;
 		this.hytte_nummer = hytte_nummer;
-		this.beskrivelse = beskrivelse;
+		this.hytteType = hytteType;
+	}
+	
+	@Override
+	public String prettyPrint(){
+		//TODO expand this
+		return super.prettyPrint() + hytteType;
 	}
 
 	public int getAntal_personer() {
@@ -52,12 +58,12 @@ public class Hytte extends HyttePlads {
 		this.hytte_nummer = hytte_nummer;
 	}
 
-	public String getBeskrivelse() {
-		return beskrivelse;
+	public String getHytteType() {
+		return hytteType;
 	}
 
-	public void setBeskrivelse(String beskrivelse) {
-		this.beskrivelse = beskrivelse;
+	public void setHytteType(String hytteType) {
+		this.hytteType = hytteType;
 	}
 	
 }

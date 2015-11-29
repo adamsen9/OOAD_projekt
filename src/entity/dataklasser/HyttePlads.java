@@ -10,14 +10,20 @@ public class HyttePlads implements IListEntity {
 	
 	public static final String[] TYPER = {"Lille plads", "Stor plads", "Hytte"};
 	
-	private int plads_id, type, iStatus, måler_id, måler_Status;
+	private int id, type, iStatus, måler_id, måler_Status;
 	private String sStatus;
 
 	public HyttePlads() {
+		this.id = 0;
+		this.type = 0;
+		this.iStatus = 0;
+		this.måler_id = 0;
+		this.måler_Status = 0;
+		this.sStatus = "";
 	}
 
 	public HyttePlads(int plads_id, int type, int iStatus, int måler_id, int måler_Status, String sStatus) {
-		this.plads_id = plads_id;
+		this.id = plads_id;
 		this.type = type;
 		this.iStatus = iStatus;
 		this.måler_id = måler_id;
@@ -33,12 +39,13 @@ public class HyttePlads implements IListEntity {
 		this.måler_id = måler_id;
 	}
 	
-	public int getPlads_id() {
-		return plads_id;
+	@Override
+	public int getId() {
+		return id;
 	}
 
-	public void setPlads_id(int plads_id) {
-		this.plads_id = plads_id;
+	public void setId(int plads_id) {
+		this.id = plads_id;
 	}
 
 	public int getType() {
@@ -74,12 +81,7 @@ public class HyttePlads implements IListEntity {
 	}
 	
 	public String prettyPrint(){
-		//TODO fix
-		return toString();
+		return "ID: " + getId() + " Type: " + getType() + " Status: " + getsStatus();
 	}
 
-	@Override
-	public int getId() {
-		return plads_id;
-	}
 }

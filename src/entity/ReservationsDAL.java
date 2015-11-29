@@ -11,7 +11,7 @@ public class ReservationsDAL {
 	public static ArrayList<Reservation> getHytteReservationsByType(int valg) {
 		
 		//TODO modify database to fit with new fields
-		String sql = "SELECT res_id,state,start_dato,slut_dato,slut_el,plads_id,kunde_id,antal_voksne,antal_børn FROM Reservation NATURAL JOIN HytterPladser WHERE HytterPladser.type = " + valg;
+		String sql = "SELECT res_id,state,start_dato,slut_dato,slut_el,plads_id,kunde_id,antal_voksne,antal_børn,antal_hund FROM Reservation NATURAL JOIN HytterPladser WHERE HytterPladser.type = " + valg;
 		ArrayList<Reservation> TypeList = new ArrayList<Reservation>();
 		
 		ResultSet rs = DAL.pull(sql);
