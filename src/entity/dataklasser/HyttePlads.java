@@ -2,9 +2,9 @@ package entity.dataklasser;
 
 public class HyttePlads implements IListEntity {
 
-	public static final int LILLE_PLADS = 1;
-	public static final int STOR_PLADS = 2;
-	public static final int HYTTE = 3;
+	public static final int LILLE_PLADS = 0;
+	public static final int STOR_PLADS = 1;
+	public static final int HYTTE = 2;
 	
 	public static final int SATUS_KLAR = 0;
 	

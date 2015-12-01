@@ -45,29 +45,26 @@ public class AdministrationsFunc {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public static ArrayList<Hytte> getAlleHytter() {
-		// TODO Implement
-		return null;
+		return (ArrayList<Hytte>)HyttePladsDAL.getHyttePladserByType(HyttePlads.HYTTE);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static ArrayList<HyttePlads> getHyttePladsAfType(int type){
-		//TODO Implement
-		return null;
+		return (ArrayList<HyttePlads>) HyttePladsDAL.getHyttePladserByType(type);
 	}
 
 	public static Hytte getHytte(int id) {
-		// TODO Implement
-		return null;
+		return HyttePladsDAL.getHytte(id);
 	}
 
 	public static HyttePlads getHyttePlads(int id) {
-		// TODO Implement
-		return null;
+		return HyttePladsDAL.getHyttePlads(id);
 	}
 
 	public static ArrayList<Hytte> getHytterAfType(String hytteType) {
-		// TODO Implement
-		return null;
+		return HyttePladsDAL.getHytterAfType(hytteType);
 	}
 
 }

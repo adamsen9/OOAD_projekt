@@ -12,6 +12,8 @@ public class Reservation {
 	public static final int STATUS_I_BRUG = 1;
 	public static final int STATUS_AFREGNET = 2;
 	
+	public static final String[] STATUSER = {"Reserveret", "I brug","afregnet"};
+	
 	int res_id, 
 		status, 
 		start_el, 
@@ -154,6 +156,7 @@ public class Reservation {
 	}
 	
 	public String prettyPrint(){
-		return "ID:" + getId() + " Start:" + getStart_dato() + " Slut:" + getSlut_dato() + " Type:" + HyttePlads.TYPER[getPlads_type()];
+		return "ID:" + getId() + " Start:" + getStart_dato() + " Slut:" + getSlut_dato() + " Type:" 
+				+ HyttePlads.TYPER[getPlads_type()] + " Status:" + STATUSER[getStatus()];
 	}
 }

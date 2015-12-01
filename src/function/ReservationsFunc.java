@@ -10,13 +10,18 @@ import entity.dataklasser.Reservation;
 
 public class ReservationsFunc {
 	
-	public static void tjekInd(ArrayList<Reservation> reservation) {
-		// TODO Implement
-		
+	public static boolean tjekInd(ArrayList<Reservation> reservationer) {
+		boolean succes = true;
+		for (Reservation res : reservationer){
+			res.setStatus(Reservation.STATUS_I_BRUG);
+			if(!ReservationsDAL.updateReservation(res))
+				succes = false;
+		}
+		return succes;
 	}
 
 	public static Reservation nyFraArray(String[] attributter) throws FunctionException {
-		/*		"Dato for ankomst (yyyy-mm-dd)", 
+		/*		"Dato for ankomst (yyyy-mm-dd) (intet valg betyder dags dato)", 
 				"Dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger",
 				"Antal voksne (Intet valg = "+ Reservation.STANDARD_VOKSNE +")",
 				"Antal børn (Intet valg = "+ Reservation.STANDARD_BØRN +")",
@@ -32,7 +37,10 @@ public class ReservationsFunc {
 		Reservation nyReservation = new Reservation();
 		
 		try {
-			start = LocalDate.parse(attributter[0]);
+			if(attributter[0].equals(""))
+				start = LocalDate.now();
+			else
+				start = LocalDate.parse(attributter[0]);
 		} catch (Exception e) {
 			fejlbeskedder.add("Start dato er ikke korrekt format");
 		} 
@@ -55,6 +63,8 @@ public class ReservationsFunc {
 		}
 		
 		try {
+			if (attributter[2].equals(""))
+				attributter[2] = "" + Reservation.STANDARD_VOKSNE;
 			voksne = Integer.parseInt(attributter[2]);
 			if (voksne < 0){
 				fejlbeskedder.add("Antal voksne er et negativt tal");
@@ -64,7 +74,9 @@ public class ReservationsFunc {
 		}
 		
 		try {
-			børn = Integer.parseInt(attributter[2]);
+			if (attributter[3].equals(""))
+				attributter[3] = "" + Reservation.STANDARD_BØRN;
+			børn = Integer.parseInt(attributter[3]);
 			if (børn < 0){
 				fejlbeskedder.add("Antal børn er et negativt tal");
 			}
@@ -73,7 +85,9 @@ public class ReservationsFunc {
 		}
 
 		try {
-			hunde = Integer.parseInt(attributter[2]);
+			if (attributter[4].equals(""))
+				attributter[4] = "" + Reservation.STANDARD_HUND;
+			hunde = Integer.parseInt(attributter[4]);
 			if (hunde < 0){
 				fejlbeskedder.add("Antal hunde er et negativt tal");
 			}
@@ -101,10 +115,18 @@ public class ReservationsFunc {
 		} else
 			reservationer = ReservationsDAL.getReservationer(hyttePlads.getType(), fra, til);
 		
+		// tjeck om den specifikke plads er reserveret
+		if(hyttePlads.getId() != 0){
+			for (Reservation res: reservationer){
+				if (res.getPlads_id() == hyttePlads.getId())
+					return 0;
+			}			
+		}
+		
 		ArrayList<IntervalDate> dates = new ArrayList<IntervalDate>();
 		for (Reservation res: reservationer){
 			dates.add(new IntervalDate(res.getStart_dato(), true));
-			dates.add(new IntervalDate(res.getStart_dato(), false));
+			dates.add(new IntervalDate(res.getSlut_dato(), false));
 		}
 		dates.sort(null);
 		int overlap = 0;
@@ -129,8 +151,7 @@ public class ReservationsFunc {
 	}
 
 	public static ArrayList<Reservation> getReservationerForKunde(int kundeId) {
-		// TODO Implement
-		return null;
+		return ReservationsDAL.getReservationerForKunde(kundeId);
 	}
 
 }

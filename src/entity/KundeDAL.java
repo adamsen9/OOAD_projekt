@@ -59,40 +59,28 @@ public class KundeDAL {
 	}
 
 	public static int pushNew(Kunde kunde) {
-		String sql = "SELECT * FROM kunde";
-		ArrayList<Integer> kundeID = new ArrayList<Integer>();
+		String sql = "SELECT * FROM kunde ORDER BY kunde_id;";
 		ResultSet rs = DAL.pull(sql);
+
 		// Ledigt ID findes
+		int counter = 1;
 		try {
 			while (rs.next()) {
-				kundeID.add(rs.getInt("kunde_id"));
+				if (rs.getInt("kunde_id") != counter) {
+					break;
+				}
+				counter++;
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
 			return 0;
 		}
 
-		int counter = 1;
-		for (int id : kundeID) {
-			if (!(id == counter)) {
-				sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf()
-						+ "');";
-				if(DAL.push(sql))
-					return counter;
-				
-				return -1;
-			}
-			counter++;
-		}
-
 		sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf() + "')";
-		if(DAL.push(sql)) {
+		if(DAL.push(sql))
 			return counter;
-			
-		} else {
-			return 0;
-		}
 
+		return 0;
 	}
 
 	public static boolean update(Kunde kunde) {
