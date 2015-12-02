@@ -14,6 +14,7 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 		super(ui);
 	}
 
+	@Override
 	public void run() {
 		String[] menuItems = { "Gå op", "Opret kunde", "Find en kunde", "Vis alle kunder" };
 
@@ -34,11 +35,7 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 				break;
 			case 3:
 				// Vis alle kunder
-				alleKunder();
-				
-				
-			default:
-				break;
+				visAlleKunder();
 			}
 		}
 	}
@@ -91,13 +88,13 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 		int id = KundeDAL.pushNew(kunde);
 		if (id != 0) {
 			Kunde nyKunde = KundeDAL.pull(id);
-			ui.besked("Kunde oprettet \n " + nyKunde.prettyPrint());
+			ui.besked("Kunde oprettet \n" + nyKunde.prettyPrint());
 			return nyKunde;
 		}
 		return null;
 	}
 
-	private void alleKunder() {
+	private void visAlleKunder() {
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		kundeList = KundeDAL.pullAll();
 		ui.besked("Liste over alle kunder:");
@@ -110,28 +107,11 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 		ArrayList<Kunde> kundeList = new ArrayList<Kunde>();
 		
 		String[] menuItems = {"Annuller","Navn","Telefonnummner","ID"};
-		
 		int valg = ui.visMenu("Vælg kunde ud fra: ", menuItems);
-
-		switch (valg) {
-		case 0:
-			// Annuller
+		if (valg == 0)
 			return null;
-		case 1:
-			// Navn
-			kundeList = KundeDAL.pull(ui.input("Indtast navn"),valg);
-			break;
-		case 2:
-			// Telefonnumer
-			kundeList = KundeDAL.pull(ui.input("Indtast telefonnummer"),valg);
-			break;
-		case 3:
-			// ID
-			kundeList = KundeDAL.pull(ui.input("Indtast ID"),valg);
-			break;
-		default:
-			break;
-		}
+		
+		kundeList = KundeDAL.pull(ui.input("Indtast " + menuItems[valg]),valg);
 		
 		for (Kunde kunde : kundeList) {
 			ui.besked(kunde.prettyPrint());

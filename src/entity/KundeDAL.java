@@ -11,22 +11,22 @@ public class KundeDAL {
 		return pull(Integer.toString(id),3).get(0);
 	}
 
-	public static ArrayList<Kunde> pull(String valg, int i) {
+	public static ArrayList<Kunde> pull(String tekst, int valg) {
 		String sql = "SELECT * FROM kunde WHERE ";
 		
+		switch (valg) {
 		//Navn
-		if(i == 1) {
-			sql += "kunde_navn = '" + valg + "'";
-		}
-
+		case 1:
+			sql += "kunde_navn = '" + tekst + "'";
+			break;
 		//tlf
-		if(i == 2) {
-			sql += "tlf = '" + valg + "'";
-		}
-
+		case 2:
+			sql += "tlf = '" + tekst + "'";
+			break;
 		//id
-		if(i == 3) {
-			sql += "kunde_id = '" + valg + "'";
+		case 3:
+			sql += "kunde_id = '" + tekst + "'";
+			break;
 		}
 		
 		ResultSet rs = DAL.pull(sql);
@@ -37,6 +37,7 @@ public class KundeDAL {
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 		return kundeList;
@@ -53,6 +54,7 @@ public class KundeDAL {
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Fejl: " + e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 		return kundeList;

@@ -197,7 +197,13 @@ public class ReservationsDAL {
 	}
 
 	public static ArrayList<Reservation> getReservationerForKunde(int kundeId) {
+		return getReservationerForKunde(kundeId, -1);
+	}
+	
+	public static ArrayList<Reservation> getReservationerForKunde(int kundeId, int status) {
 		String sql = "SELECT * FROM reservation WHERE kunde_id =" + kundeId;
+		if (status >= 0)
+			sql += " AND status =" + status;
 		sql += ";";
 	
 		ArrayList<Reservation> returnList = new ArrayList<Reservation>();

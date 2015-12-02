@@ -154,4 +154,16 @@ public class ReservationsFunc {
 		return ReservationsDAL.getReservationerForKunde(kundeId);
 	}
 
+	public static ArrayList<Reservation> getReservationerForKunde(int kundeId, int status) {
+		return ReservationsDAL.getReservationerForKunde(kundeId, status);
+	}
+
+	public static int opretReservation(Reservation nyReservation) {
+		return ReservationsDAL.opretReservation(nyReservation);
+	}
+
+	public static Reservation getReservation(int id) {
+		return ReservationsDAL.getReservation(id);
+	}
+
 }
