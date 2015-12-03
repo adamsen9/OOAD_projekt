@@ -79,10 +79,14 @@ public class KundeDAL {
 		}
 
 		sql = "INSERT INTO kunde VALUES ('" + kunde.getNavn() + "', " + counter + " ,'" + kunde.getTlf() + "')";
-		if(DAL.push(sql))
+		if(DAL.push(sql)) {
 			return counter;
+			
+		} else {
+			return 0;
+			
+		}
 
-		return 0;
 	}
 
 	public static boolean update(Kunde kunde) {

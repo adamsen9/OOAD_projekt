@@ -27,7 +27,7 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 				return;
 			case 1:
 				//Opret kunde
-				opretKunde();
+				opretNyKunde();
 				break;
 			case 2:
 				// Vis en kunde
@@ -51,7 +51,7 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 
 		KundeVælger[] menuFunktioner = {
 			() -> { return null; },
-			() -> { return opretKunde(); },
+			() -> { return opretNyKunde(); },
 			() -> { return findEnKunde(); }
 		};
 		
@@ -67,7 +67,7 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 		return valg;
 	}
 
-	private Kunde opretKunde() {
+	private Kunde opretNyKunde() {
 		ui.besked("Oprettelse af ny kunde");
 		ui.besked("Indtast -1 på et givent tidspunkt for at afbryde");
 
@@ -85,13 +85,14 @@ public class ConsoleKundeController extends GeneralController implements KundeCo
 		}
 
 		Kunde kunde = new Kunde(navn, tlf);
-		int id = KundeDAL.pushNew(kunde);
-		if (id != 0) {
-			Kunde nyKunde = KundeDAL.pull(id);
-			ui.besked("Kunde oprettet \n" + nyKunde.prettyPrint());
-			return nyKunde;
-		}
-		return null;
+		
+		kunde.setId(KundeDAL.pushNew(kunde));
+		
+		if(kunde.getId() == 0)
+			return null;
+		
+		ui.besked("Kunde oprettet \n" + kunde.prettyPrint());
+		return kunde;
 	}
 
 	private void visAlleKunder() {

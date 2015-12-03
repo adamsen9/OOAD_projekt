@@ -26,6 +26,7 @@ public class ConsoleMainMenuController extends GeneralController {
 				reservC.run();
 				break;
 			case 2:
+				//Kunder
 				kundeC.run();
 				break;
 			case 3:
