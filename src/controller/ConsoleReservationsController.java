@@ -191,10 +191,29 @@ public class ConsoleReservationsController extends GeneralController{
 			case 0:
 				return null;
 			case 1:
-				nyReservation.setStart_dato(LocalDate.parse(ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)")));
+				String sInput = ui.input("Indtast ny dato for ankomst (yyyy-mm-dd)");
+				try {
+					nyReservation.setStart_dato(LocalDate.parse(sInput));
+				} catch (Exception e2) {
+					ui.besked("Start dato er ikke korrekt format");
+				}
 				break;
 			case 2:
-				nyReservation.setSlut_dato(LocalDate.parse(ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger")));
+				sInput = ui.input("Indtast ny dato for afrejse (yyyy-mm-dd) eller skriv antal overnatninger");
+				try {
+					int days = Integer.parseInt(sInput);
+					nyReservation.setSlut_dato(nyReservation.getStart_dato().plusDays(days));
+				} catch (Exception e) {
+					try {
+						nyReservation.setSlut_dato(LocalDate.parse(sInput));
+					} catch (Exception e2) {
+						ui.besked("Slut dato er ikke korrekt format");
+					}
+				}
+				
+				if (!nyReservation.getSlut_dato().isAfter(nyReservation.getStart_dato())){
+					ui.besked("Slutdato er ikke efter startdato");
+				}				
 				break;
 			case 3:
 				hyttePlads = ac.vælgHyttePlads();
